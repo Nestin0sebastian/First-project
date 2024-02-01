@@ -1,0 +1,269 @@
+<%- include('../partials/header.ejs')%>
+<%- include('../partials/slidebar.ejs')%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <!-- Container-fluid starts-->
+            <div class="page-body">
+                <!-- All User Table Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card card-table">
+                                <div class="card-body">
+                                    <div class="title-header option-title">
+                                        <h5>All Category</h5>
+                                        <form class="d-inline-flex">
+                                            <a href="add-new-category.html"
+                                                class="align-items-center btn btn-theme d-flex">
+                                                <i data-feather="plus-square"></i>Add New
+                                            </a>
+                                        </form>
+                                    </div>
+
+                                    <div class="table-responsive category-table">
+                                        <div>
+                                            <table class="table all-package theme-table" id="table_id">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Product Name</th>
+                                                      
+                                                        <th class="text-center">product image</th>
+                                                        <th class="text-center">description</th>
+                                                        <th class="text-center">Unlist/List</th>
+                                                        <th class="text-center">Edit</th>
+                                                       
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+
+                                                  <tbody> 
+                                                    <% category.reverse().forEach((item) => { %>
+                                                        <tr>
+                                                          <td><%= item.name %></td>
+                                                          <td>
+                                                            <img src="<%= item.image %>" width="50" height="50" alt="image">
+                                                          </td>
+                                                          <td><%= item.description %></td>
+                                                          <td class="d-flex align-items-center text-center"> <!-- Align buttons to the right -->
+                                                            <% if(item.islist) { %>
+                                                              <button class="btn btn-danger  " onclick="blockcatagory('<%= item._id %>')">Unlist</button> 
+                                                            <% } else { %>
+                                                                <button class="btn btn-danger " onclick="blockcatagory('<%= item._id %>')">List</button>
+
+                                                            <% } %>
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/editcatagory?id=<%= item._id %>"><button class="btn btn-info ">Edit</button></a>
+                                                            
+                                                        </td>
+                                                         
+                                                          <td class="d-flex justify-content-between">
+                                                            <!-- Your logic or content here -->
+                                                          </td>
+                                                          <td></td>
+                                                          <td></td>
+                                                    
+                                                        </tr>
+                                                      <% }); %>
+                                                      
+                                                      
+                                                      
+  
+                <!-- All User Table Ends-->
+
+                <div class="container-fluid">
+                    
+                    <!-- footer start-->
+                    <footer class="footer">
+                        <div class="row">
+                            <div class="col-md-12 footer-copyright text-center">
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center mt-4">
+                                        <% if (hasPreviousPage) { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= previousPage %>" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                        <% } %>
+                                
+                                        <% for (let i = 1; i <= lastPage; i++) { %>
+                                            <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+                                                <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+                                
+                                        <% if (hasNextPage) { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= nextPage %>" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- footer end-->
+                </div>
+            </div>
+            <!-- Container-fluid end -->
+        </div>
+        <!-- Page Body End -->
+
+        <!-- Modal Start -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+            <div class="modal-dialog  modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                        <p>Are you sure you want to log out?</p>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="button-box">
+                            <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal End -->
+    </div>
+
+    <!-- Delete Modal Box Start -->
+    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>The permission for the use/group, preview is inherited from the object, object will create a
+                            new permission for this object</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <div class="wrapper">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                            </svg>
+                        </div>
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal Box End -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+        async function blockcatagory(userId) {
+            // Display a confirmation dialog using SweetAlert
+            const confirmed = await Swal.fire({
+                title: 'Are you sure?',
+                text: 'This action will block/unblock the category. Proceed?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            });
+    
+            if (confirmed.isConfirmed) {
+                try {
+                    const response = await fetch(`/admin/blockcatagory/${userId}`, {
+                        method: 'post'
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+    
+                    const result = await response.json();
+                    console.log(result);
+    
+                    window.location.reload();
+                } catch (error) {
+                    console.error('Fetch error:', error);
+                }
+            } else {
+                // The user clicked "No" or closed the dialog
+                console.log('Action canceled');
+            }
+        }
+    </script>
+
+    <!-- latest js -->
+    <script src="/assetsb/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="/assetsb/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="/assetsb/js/icons/feather-icon/feather.min.js"></script>
+    <script src="/assetsb/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="/assetsb/js/scrollbar/simplebar.js"></script>
+    <script src="/assetsb/js/scrollbar/custom.js"></script>
+
+    <!-- customizer js -->
+    <script src="/assetsb/js/customizer.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="/assetsb/js/config.js"></script>
+
+    <!-- Plugins JS -->
+    <script src="/assetsb/js/sidebar-menu.js"></script>
+    <script src="/assetsb/js/notify/bootstrap-notify.min.js"></script>
+    <script src="/assetsb/js/notify/index.js"></script>
+
+    <!-- Data table js -->
+    <script src="/assetsb/js/jquery.dataTables.js"></script>
+    <script src="/assetsb/js/custom-data-table.js"></script>
+
+    <!-- sidebar effect -->
+    <script src="/assetsb/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="/assetsb/js/script.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:46 GMT -->
+</html>
+
+

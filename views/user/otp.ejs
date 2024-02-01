@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .otp-field input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .otp-field input[type="text"]:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #resendOtpButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #countdown {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .text-danger {
+            color: #dc3545;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <section class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 col-lg-4" style="min-width: 320px;">
+                <div class="card bg-white mb-5 mt-5 border-0">
+                    <div class="card-body text-center">
+                        <form action="/otp" method="post" onsubmit="return validateForm()">
+                            <div class="otp-field mb-4">
+                                <input type="text" name="otp" id="otpInput" maxlength="6" placeholder="Enter your OTP">
+                            </div>
+                            <% if(err !== '' && err !== undefined) { %>
+                            <p class="text-danger"><%= err %></p>
+                            <% } %>
+
+                            <button class="btn btn-primary mb-3">
+                                Verify
+                            </button>
+                            
+                            <div>
+                                <p id="countdown">Time Remaining: 30s</p>
+                                <button id="resendOtpButton" style="display: none;">Resend OTP</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+            
+        var countdownElement = document.getElementById("countdown");
+        var resendOtpButton = document.getElementById("resendOtpButton");
+        var countdownInterval;
+        var countdownSeconds = 30;
+
+        function startCountdown() {
+            countdownInterval = setInterval(function () {
+                countdownElement.innerText = "Time left: " + countdownSeconds + "s";
+                countdownSeconds--;
+
+                if (countdownSeconds < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.innerText = "Time's up!";
+                    resendOtpButton.style.display = "inline-block"; // Show the resend button
+                }
+            }, 1000);
+        }
+
+        function resetCountdown() {
+            clearInterval(countdownInterval);
+            countdownSeconds = 30;
+            countdownElement.innerText = "Time Remaining: " + countdownSeconds + "s";
+            resendOtpButton.style.display = "none";
+            startCountdown();
+        }
+
+        function validateForm() {
+            const otpInput = document.getElementById('otpInput');
+            const enteredOTP = otpInput.value;
+
+            const otpPattern = /^\d{6}$/;
+            if (!otpPattern.test(enteredOTP)) {
+                alert('Please enter a valid 6-digit OTP');
+                return false; // Prevent form submission
+            }
+
+            // Form is valid, allow submission
+            return true;
+        }
+
+        window.onload = function() {
+            if (performance.navigation.type === 1) {
+                // Page is reloaded
+                window.location.href = "/signup"; // Redirect to '/signup' route
+            } else {
+                // Page is not reloaded
+                startCountdown(); // Start countdown if it's not a page refresh
+            }
+        };
+
+        resendOtpButton.addEventListener("click", function () {
+            fetch('/resendotp', {
+                method: 'POST'
+            }).then((res) => {
+                if (res.ok) {
+                    resendOtpButton.style.display = "none";
+                    resetCountdown();
+                } else {
+                    console.error("Resend OTP error");
+                }
+            }).catch((err) => {
+                console.error("Resend OTP error:", err);
+            });
+        });
+    
+
+    </script>
+</body>
+</html>

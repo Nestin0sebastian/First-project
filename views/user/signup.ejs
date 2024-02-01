@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup Page</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="//assets/css/signup.css">
+  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Molla - Bootstrap eCommerce Template</title>
+  <meta name="keywords" content="HTML5 Template">
+  <meta name="description" content="Molla - Bootstrap eCommerce Template">
+  <meta name="author" content="p-themes">
+  <!-- Favicon -->
+
+  <meta name="apple-mobile-web-app-title" content="Molla">
+  <meta name="application-name" content="Molla">
+  <meta name="msapplication-TileColor" content="#cc9966">
+  <meta name="msapplication-config" content="/assets/images/icons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/icons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/images/icons/site.html">
+  <link rel="mask-icon" href="/assets/images/icons/safari-pinned-tab.svg" color="#666666">
+  <link rel="shortcut icon" href="/assets/images/icons/favicon.ico">
+  <link rel="stylesheet" href="/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+  <!-- Plugins CSS File -->
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/plugins/owl-carousel/owl.carousel.css">
+  <link rel="stylesheet" href="/assets/css/plugins/magnific-popup/magnific-popup.css">
+  <link rel="stylesheet" href="/assets/css/plugins/jquery.countdown.css">
+  <!-- Main CSS File -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/skins/skin-demo-6.css">
+  <link rel="stylesheet" href="/assets/css/demos/demo-6.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+  <style>
+    .form-box {
+  background-color: #fff;
+  padding: 80px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  width: 600px; /* Adjust the width as needed */
+  margin: auto; /* Center the box horizontally */
+}
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to top, #000000, #000000);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-box {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 400px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: calc(100% - 20px);
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .btn-outline-primary-2 {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 1px solid #FFA500;
+      border-radius: 4px;
+      background-color: transparent;
+      color: #FFA500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary-2:hover {
+      background-color: #FFA500;
+      color: #fff;
+    }
+
+    .text-danger {
+      color: #FF6347;
+      font-size: 14px;
+    }
+    .form-box {
+        background: url('https://wallpapers.com/images/high/cartoon-sneaker-a5iilz8nghas2y57.webp') center/cover no-repeat;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+    /* Rest of your CSS... */
+    .form-box-content {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .form-group label {
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .form-control {
+        color: #333; /* Adjust text color as needed */
+        /* Add any other styles for the form control */
+    }
+  </style>
+</head>
+<body class="align">
+  <!-- <div class="grid">
+    <form action="https://httpbin.org/post" method="POST" class="form login">
+      <div class="form__field">
+        <label for="signup__firstname">First Name</label>
+        <input id="signup__firstname" type="text" name="firstname" class="form__input" placeholder="First Name" required>
+      </div>
+      <div class="form__field">
+        <label for="signup__lastname">Last Name</label>
+        <input id="signup__lastname" type="text" name="lastname" class="form__input" placeholder="Last Name" required>
+      </div>
+      <div class="form__field">
+        <label for="signup__email">Email</label>
+        <input id="signup__email" type="text" name="email" class="form__input" placeholder="Email" required>
+      </div>
+      <div class="form__field">
+        <label for="signup__contact">Contact</label>
+        <input id="signup__contact" type="text" name="contact" class="form__input" placeholder="Contact" required>
+      </div>
+      <div class="form__field">
+        <label for="signup__password">Password</label>
+        <input id="signup__password" type="password" name="password" class="form__input" placeholder="Password" required>
+      </div>
+      <div class="form__field">
+        <label for="signup__confirm_password">Confirm Password</label>
+        <input id="signup__confirm_password" type="password" name="confirm_password" class="form__input" placeholder="Confirm Password" required>
+      </div>
+      <div class="form__field">
+        <input type="submit" value="Sign Up">
+      </div>
+    </form>
+    <p class="text--center">Already a member? <a href="#">Sign in</a> <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/images/icons.svg#arrow-right"></use></svg></p>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" class="icons">
+    <symbol id="arrow-right" viewBox="0 0 1792 1792"><path d="M1600 960q0 54-37 91l-651 651q-39 37-91 37-51 0-90-37l-75-75q-38-38-38-91t38-91l293-293H245q-52 0-84.5-37.5T128 1024V896q0-53 32.5-90.5T245 768h704L656 474q-38-36-38-90t38-90l75-75q38-38 90-38 53 0 91 38l651 651q37 35 37 90z"/></symbol>
+    <symbol id="lock" viewBox="0 0 1792 1792"><path d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z"/></symbol>
+    <symbol id="user" viewBox="0 0 1792 1792"><path d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5zm-320-893q0 159-112.5 271.5T896 896 624.5 783.5 512 512t112.5-271.5T896 128t271.5 112.5T1280 512z"/></symbol>
+  </svg> -->
+
+
+
+
+
+<div class="container">
+  <h2 style="color: white; font-family: 'fantasy'; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 8px; text-align: center; background: linear-gradient(to right, #000000, #000000); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">Signup</h2>
+
+  <div class="form-box" style="max-width: 600px; margin: 0 auto;">
+    <form action="/signup" method="post">
+        <div class="form-group">
+            <label for="firstname"></label>
+            <input type="text" class="form-control" id="register-firstname"  placeholder="Firstname"name="firstname" onkeyup="validateFirstname()">
+            <span id="fnerrormsg" class="text-white "></span>
+        </div><!-- End .form-group -->
+
+        <div class="form-group">
+            <!-- <label for="lastname">lastname</label> -->
+            <input type="text" class="form-control" id="register-lastname"   placeholder="Lastname"  name="lastname" onkeyup="validateLastname()">
+            <span id="lnerrormsg" class="text-white "></span>
+        </div>
+
+        <div class="form-group">
+            <!-- <label for="contact">phone no</label> -->
+            <input type="tel" class="form-control" id="register-phone"  placeholder="Phone no" name="contact" onkeyup="validateContact()">
+            <span id="pherrormsg" class="text-white "></span>
+        </div>
+        
+        <div class="form-group">
+            <!-- <label for="email">email</label> -->
+            <input type="email" class="form-control" id="register-email" name="email"  placeholder="Email"  onkeyup="validateEmail()">
+            <span id="mailerrormsg" class="text-white "></span>
+        </div>
+        
+        <div class="form-group">
+            <!-- <label for="password">Password *</label> -->
+            <input type="password" class="form-control" id="register-password"  placeholder="Password" name="password" onkeyup="validatePassword()">
+            <span id="pinerrormsg" class="text-white "></span>
+        </div><!-- End .form-group -->
+
+
+        <div class="form-group">
+          <!-- <label for="contact">phone no</label> -->
+          <input type="tel" class="form-control"  placeholder="refferal code " name="referrer" onkeyup="validateContact()">
+          <!-- <span id="pherrormsg" class="text-white "></span> -->
+      </div>
+
+        
+        <div class="form-footer">
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-primary-2" onclick="return validateForm()">
+                    <span id="buttonerrormsg" class="text-white ">SIGNUP</span>
+                    <i class="icon-long-arrow-right"></i>
+                </button>
+            </div>
+        </div><!-- End .form-footer -->
+    </form>
+
+    <!-- <div class="form-choice">
+        <p class="text-center">or sign in with</p>
+        <div class="row">
+            <div class="col-sm-6">
+                <a href="#" class="btn btn-login btn-g">
+                    <i class="icon-google"></i>
+                    Login With Google
+                </a>
+            </div>< End .col-6 -->
+            <!-- <div class="col-sm-6">
+                <a href="#" class="btn btn-login btn-f">
+                    <i class="icon-facebook-f"></i>
+                    Login With Facebook -->
+                </a>
+            </div><!-- End .col-6 -->
+        </div><!-- End .row -->
+    </div><!-- End .form-choice -->
+</div> 
+<!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+
+
+                </div>
+
+
+
+
+<script src="/signupvalidation.js"></script>
+
+
+</body>
+</html>

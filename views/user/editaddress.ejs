@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Address</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+  <style>
+    /* ... other styles ... */
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
+    
+    /* ... other styles ... */
+  
+    input[type="submit"] {
+      background-color: orange; /* Change this to the desired orange color */
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      font-size: 16px;
+    }
+  
+    input[type="submit"]:hover {
+      background-color: darkorange; /* Change hover color if desired */
+    }
+  
+    /* ... other styles ... */
+  
+  
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: #f8f8f8;
+      }
+  
+      .form-container {
+        background: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 40px;
+        width: 450px;
+      }
+  
+      .form-group {
+        margin-bottom: 20px;
+      }
+  
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+        color: #333;
+      }
+  
+      input[type="text"],
+      input[type="tel"],
+      input[type="number"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+  
+      input[type="submit"] {
+        background-color: #e6a50d;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 12px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        font-size: 16px;
+      }
+  
+      input[type="submit"]:hover {
+        background-color: #9f8640;
+      }
+  
+      .form-footer {
+        text-align: center;
+        margin-top: 20px;
+      }
+  
+      .form-footer a {
+        color: #007bff;
+        text-decoration: none;
+      }
+  
+      .form-footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Edit Address</h2>
+  <form action="/editaddresspost/<%= matchingAddress._id %>" method="post" onsubmit="return validateForm()">
+    <div class="form-group">
+      <label for="fullname">Full Name:</label>
+      <input type="text" id="fullname" name="fullname" value="<%= matchingAddress.fullname %>" required>
+      <div id="fullname-error" class="error-message"></div>
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" value="<%= matchingAddress.contact %>" required>
+      <div id="phone-error" class="error-message"></div>
+    </div>
+    <div class="form-group">
+      <label for="pincode">Pincode:</label>
+      <input type="number" id="pincode" name="pincode" value="<%= matchingAddress.pincode %>" required>
+      <div id="pincode-error" class="error-message"></div>
+    </div>
+    <div class="form-group">
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" value="<%= matchingAddress.state %>" required>
+      <div id="state-error" class="error-message"></div>
+    </div>
+    <div class="form-group">
+      <label for="housename">Address:</label>
+      <input type="text" id="housename" name="housename" placeholder="House Name" value="<%= matchingAddress.address %>" required>
+      <div id="housename-error" class="error-message"></div>
+    </div>
+    <div class="form-group">
+      <label for="locality">Locality:</label>
+      <input type="text" id="locality" name="locality" value='<%= matchingAddress.locality %>' required>
+      <div id="locality-error" class="error-message"></div>
+    </div>
+    <div class="form-group">
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" value="<%= matchingAddress.city %>" required>
+      <div id="city-error" class="error-message"></div>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<script>
+  function validateForm() {
+    var fullname = document.getElementById("fullname").value.trim();
+    var phone = document.getElementById("phone").value.trim();
+    var pincode = document.getElementById("pincode").value.trim();
+    var state = document.getElementById("state").value.trim();
+    var housename = document.getElementById("housename").value.trim();
+    var locality = document.getElementById("locality").value.trim();
+    var city = document.getElementById("city").value.trim();
+
+    var fullnameError = document.getElementById("fullname-error");
+    var phoneError = document.getElementById("phone-error");
+    var pincodeError = document.getElementById("pincode-error");
+    var stateError = document.getElementById("state-error");
+    var housenameError = document.getElementById("housename-error");
+    var localityError = document.getElementById("locality-error");
+    var cityError = document.getElementById("city-error");
+
+    var isValid = true;
+
+    // Validation for Full Name
+    if (fullname === "") {
+  fullnameError.textContent = "Full Name is required";
+  isValid = false;
+} else if (!/^[A-Za-z\s]+$/.test(fullname)) {
+  fullnameError.textContent = "Full Name should contain only alphabetic characters";
+  isValid = false;
+} else if (/\s/.test(fullname)) {
+  fullnameError.textContent = "Full Name cannot contain only spaces";
+  isValid = false;
+} else {
+  fullnameError.textContent = "";
+}
+
+
+if (phone === "") {
+  phoneError.textContent = "Phone Number is required";
+  isValid = false;
+} else if (!/^\d{10}$/.test(phone)) {
+  phoneError.textContent = "Please enter a valid 10-digit phone number";
+  isValid = false;
+} else {
+  phoneError.textContent = "";
+}
+
+if (pincode === "") {
+  pincodeError.textContent = "Pincode is required";
+  isValid = false;
+} else if (!/^\d+$/.test(pincode)) {
+  pincodeError.textContent = "Please enter a valid pincode";
+  isValid = false;
+} else {
+  pincodeError.textContent = "";
+}
+
+if (state === "") {
+  stateError.textContent = "State is required";
+  isValid = false;
+} else if (!/^[A-Za-z]+$/.test(state)) {
+  stateError.textContent = "Please enter a valid state name";
+  isValid = false;
+} else {
+  stateError.textContent = "";
+}
+
+
+    // Validation for Address
+    if (housename === "") {
+      housenameError.textContent = "Address is required";
+      isValid = false;
+    } else {
+      housenameError.textContent = "";
+    }
+
+    // Validation for Locality
+ // Validation for Locality
+if (locality === "") {
+  localityError.textContent = "Locality is required";
+  isValid = false;
+} else if (!/^[A-Za-z]+$/.test(locality)) {
+  localityError.textContent = "Please enter a valid locality name";
+  isValid = false;
+} else {
+  localityError.textContent = "";
+}
+
+if (city === "") {
+  cityError.textContent = "City is required";
+  isValid = false;
+} else if (!/^[A-Za-z]+$/.test(city)) {
+  cityError.textContent = "Please enter a valid city name";
+  isValid = false;
+} else {
+  cityError.textContent = "";
+}
+
+    return isValid;
+  }
+</script>
+
+</body>
+</html>

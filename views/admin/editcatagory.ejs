@@ -1,0 +1,208 @@
+
+<%- include('../partials/header.ejs')%>
+
+
+
+
+          <!-- Page Sidebar Ends-->
+
+            <div class="page-body">
+
+                <!-- New Product Add Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-8 m-auto">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-header-2">
+                                                <h5>Category Information</h5>
+                                            </div>
+
+                                            <form id="editcategory" class="theme-form theme-form-2 mega-form"  action="/admin/editcatagory?id=<%= item._id %>" enctype="multipart/form-data"   method="post"  >
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0"  >Category Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control"  name="name" type="text"
+                                                            placeholder="Category Name" id="categoryname"   value="<%= item.name%>">
+                                                            <span class="error-message text-danger" id="categorynameerror"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Category
+                                                        Image</label >
+                                                        <div class="form-group col-sm-9">
+                                                            <div class="dropzone-wrapper">
+                                                                <div class="dropzone-desc">
+                                                                    <!-- <i class="ri-upload-2-line"></i> -->
+                                                                    <p>Choose an image file or drag it here.</p>
+                                                                </div>
+                                                                <input type="file" name="categoryImage" id="categoryimage" class="dopzone"  >
+                                                                <span class="error-message text-danger" id="categoryimageerror"></span>
+                                                            </div>
+                                                        </div>
+                                                    <div><img src="<%= item.image%>" width="200 px" heigth="150px" ></div>
+                                                </div>
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <div class="col-sm-3 form-label-title">Description</div>
+                                                    <div class="col-sm-9">
+                                                        <div class="dropdown icon-dropdown">
+                                                    
+                                                              <input class="btn dropdown-toggle" id="categorydescription" name="description" type="text"   value="<%= item.description%>" >
+                                                              <span class="error-message text-danger" id="categorydescriptionerror"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <button type="submit" class="btn btn-success"  >submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Product Add End -->
+
+                <!-- footer Start -->
+                <div class="container-fluid">
+                    <footer class="footer">
+                        <div class="row">
+                            <div class="col-md-12 footer-copyright text-center">
+                                <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <!-- footer En -->
+            </div>
+            <!-- Container-fluid End -->
+        </div>
+        <!-- Page Body End -->
+    </div>
+    <!-- page-wrapper End -->
+
+    <!-- Modal Start -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                    <p>Are you sure you want to log out?</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <div class="button-box">
+                        <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+
+
+
+    <script>
+
+const editcategory = document.getElementById('editcategory');
+
+editcategory.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const categoryName = document.getElementById('categoryname').value;
+    const categoryImage = document.getElementById('categoryimage').files;
+    const categoryDescription = document.getElementById('categorydescription').value;
+
+    let hasError = false;
+
+    // Clear previous error messages
+    const errorSpans = document.querySelectorAll('.error-message');
+    errorSpans.forEach(span => {
+        span.textContent = '';
+    });
+
+    // Category Name validation
+    if (categoryName.trim() === '') {
+        document.getElementById('categorynameerror').textContent = 'Category Name is required';
+        hasError = true;
+    }
+
+    // Category Image validation
+ 
+    if (categoryImage.length > 0) {
+        const allowedFormats = ['image/jpeg', 'image/png', 'image/gif','image/webp'];
+        for (let i = 0; i < productImage.length; i++) {
+            if (!allowedFormats.includes(productImage[i].type)) {
+                document.getElementById('imageerror').textContent = 'Invalid image format. Allowed formats: JPG, PNG, GIF';
+                hasError = true;
+                break;
+            }
+        }
+    }
+    // Description validation
+    if (categoryDescription.trim() === '') {
+        document.getElementById('categorydescriptionerror').textContent = 'Description is required';
+        hasError = true;
+    }
+
+    if (!hasError) {
+        editcategory.submit(); // Submit the form if there are no errors
+    }
+});
+ 
+    </script>
+
+    <!-- latest js -->
+    <script src="assetsb/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="assetsb/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="assetsb/js/icons/feather-icon/feather.min.js"></script>
+    <script src="assetsb/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="assetsb/js/scrollbar/simplebar.js"></script>
+    <script src="assetsb/js/scrollbar/custom.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="assetsb/js/config.js"></script>
+
+    <!-- bootstrap tag-input js -->
+    <script src="assetsb/js/bootstrap-tagsinput.min.js"></script>
+    <script src="assetsb/js/sidebar-menu.js"></script>
+
+    <!-- customizer js -->
+    <script src="assetsb/js/customizer.js"></script>
+
+    <!--Dropzon js -->
+    <script src="assetsb/js/dropzone/dropzone.js"></script>
+    <script src="assetsb/js/dropzone/dropzone-script.js"></script>
+
+    <!-- Plugins js -->
+    <script src="assetsb/js/notify/bootstrap-notify.min.js"></script>
+    <script src="assetsb/js/notify/index.js"></script>
+
+    <!-- select2 js -->
+    <script src="assetsb/js/select2.min.js"></script>
+    <script src="assetsb/js/select2-custom.js"></script>
+
+    <!-- sidebar effect -->
+    <script src="assetsb/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="assetsb/js/script.js"></script>
+
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-category.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:46 GMT -->
+</html>

@@ -1,0 +1,358 @@
+<%- include('../partials/header.ejs') %>
+<%- include('../partials/slidebar.ejs') %>
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Filter Dropdown on the Left Side -->
+            <div class="col-sm-4">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <h5>Filter by Category</h5>
+                        <select class="form-select" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <% const uniqueCategories = [...new Set(products.map(product => product.category ? product.category.name : 'N/A'))]; %>
+                            <% uniqueCategories.forEach(category => { %>
+                                <option value="<%= category %>"><%= category %></option>
+                            <% }); %>
+                        </select>
+                        <button class="btn btn-primary mt-2" onclick="applyCategoryFilter()">Apply Filter</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content with Table -->
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <div class="title-header option-title d-sm-flex d-block">
+                            <h5>Products List</h5>
+                            <div class="right-options">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:void(0)">import</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">Export</a>
+                                    </li>
+                                    <li>
+                                        <a class="btn btn-solid" href="/admin/addproduct">Add Product</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="table-responsive">
+                               
+                            
+                                <table class="table all-package theme-table table-product" id="table_id">
+                                    <thead>
+                                        <tr>
+                                            <th>Product Image</th>
+                                            <th>Product Name</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Current Qty</th>
+                                            <th>Price</th>
+                                            <th>Size</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% products.reverse().forEach((y) => { %>
+                                            <tr>
+                                                <td>
+                                                    <img src="<%= y.productImage[0] %>" width="50" height="50" alt="image">
+                                                </td>
+                                                <td><%= y.productName %></td>
+                                                <td><%= y.category ? y.category.name : 'N/A' %></td>
+
+                                                <td><%= y.description %></td>
+                                                <td><%= y.currentQut %></td>
+                                                <td><%= y.price %></td>
+                                                <td><%= y.size %></td>
+                                                <td class="d-flex align-items-center justify-content-center gap-2">
+                                                    <% if(y.islist) { %>
+                                                        <button class="btn btn-danger btn-block" onclick="blockproduct('<%= y._id %>')">Unlist</button>
+                                                    <% } else { %>
+                                                        <button class="btn btn-danger btn-block" onclick="blockproduct('<%= y._id %>')">List</button>
+                                                    <% } %>
+                                                    <a href="/admin/editproduct?id=<%= y._id %>"><button class="btn btn-primary btn-block">Edit</button></a>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <% if (hasPreviousPage || hasNextPage) { %>
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        <% if (hasPreviousPage) { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= previousPage %>" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                            </li>
+                                        <% } %>
+
+                                        <% for (let i = 1; i <= lastPage; i++) { %>
+                                            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                            </li>
+                                        <% } %>
+
+                                        <% if (hasNextPage) { %>
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=<%= nextPage %>" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </nav>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Start -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                    <p>Are you sure you want to log out?</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <div class="button-box">
+                        <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+
+    <!-- Delete Modal Box Start -->
+    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>The permission for the use/group, preview is inherited from the object, object will create a
+                            new permission for this object</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <div class="wrapper">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                            </svg>
+                        </div>
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include SweetAlert library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    async function blockproduct(userId) {
+        try {
+            // Display a confirmation dialog using SweetAlert
+            const confirmed = await Swal.fire({
+                title: 'Are you sure?',
+                text: 'This action will block/unblock the product. Proceed?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No'
+            });
+
+            if (confirmed.isConfirmed) {
+                const response = await fetch(`/admin/blockproduct/${userId}`, {
+                    method: 'post'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log(result);
+
+                window.location.reload();
+            } else {
+                // The user clicked "No" or closed the dialog
+                console.log('Action canceled');
+            }
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    }
+</script>
+
+
+
+    <!-- Delete Modal Box End -->
+
+    <!-- latest js -->
+    <script src="/assetsb/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="/assetsb/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="/assetsb/js/icons/feather-icon/feather.min.js"></script>
+    <script src="/assetsb/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="/assetsb/js/scrollbar/simplebar.js"></script>
+    <script src="/assetsb/js/scrollbar/custom.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="/assetsb/js/config.js"></script>
+
+    <!-- customizer js -->
+    <script src="/assetsb/js/customizer.js"></script>
+
+    <!-- Plugins js -->
+    <script src="/assetsb/js/sidebar-menu.js"></script>
+    <script src="/assetsb/js/notify/bootstrap-notify.min.js"></script>
+    <script src="/assetsb/js/notify/index.js"></script>
+
+    <!-- Data table js -->
+    <script src="/assetsb/js/jquery.dataTables.js"></script>
+    <script src="/assetsb/js/custom-data-table.js"></script>
+
+    <!-- sidebar effect -->
+    <script src="/assetsb/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="/assetsb/js/script.js"></script>
+    <script>
+        function applyCategoryFilter() {
+            var selectedCategory = $('#categoryFilter').val();
+        
+            // If a category is selected, filter the table rows based on the category
+            if (selectedCategory !== "") {
+                $('#table_id tbody tr').each(function() {
+                    var productCategory = $(this).find('td:eq(2)').text(); // Assuming category is in the third column
+                    if (productCategory !== selectedCategory) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            } else {
+                // If no category is selected, show all rows
+                $('#table_id tbody tr').show();
+            }
+        }
+        </script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+
+             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#table_id').DataTable();
+                });
+            
+                function applyCategoryFilter() {
+                    var selectedCategory = $('#categoryFilter').val();
+            
+                    // If a category is selected, filter the table rows based on the category
+                    if (selectedCategory !== "") {
+                        $('#table_id tbody tr').each(function () {
+                            var productCategory = $(this).find('td:eq(2)').text(); // Assuming category is in the third column
+                            if (productCategory !== selectedCategory) {
+                                $(this).hide();
+                            } else {
+                                $(this).show();
+                            }
+                        });
+                    } else {
+                        // If no category is selected, show all rows
+                        $('#table_id tbody tr').show();
+                    }
+                }
+            </script>
+<script src="/assetsb/js/jquery.dataTables.js"></script>
+<script src="/assetsb/js/custom-data-table.js"></script>
+<script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#table_id').DataTable();
+    });
+
+    function applyCategoryFilter() {
+        var selectedCategory = $('#categoryFilter').val();
+
+        // If a category is selected, filter the table rows based on the category
+        if (selectedCategory !== "") {
+            $('#table_id tbody tr').each(function () {
+                var productCategory = $(this).find('td:eq(2)').text(); // Assuming category is in the third column
+                if (productCategory !== selectedCategory) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        } else {
+            // If no category is selected, show all rows
+            $('#table_id tbody tr').show();
+        }
+    }
+</script>
+
+
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/products.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:44 GMT -->
+</html>

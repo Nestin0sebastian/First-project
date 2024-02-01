@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+  <style>
+    /* Styles for the extraordinary button */
+    /* Styles for the extraordinary button */
+    /* Styles for the extraordinary button and container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.extraordinary-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.extraordinary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.extraordinary-btn {
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.extraordinary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.extraordinary-btn {
+    display: inline-block;
+    padding: 15px 25px;
+    border-radius: 50px;
+    background-color: #ff6600;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.extraordinary-btn:hover {
+    background-color: #ff8533;
+}
+
+/* Additional styles for a download icon */
+.extraordinary-btn::after {
+    content: "\f019"; /* Font Awesome download icon */
+    font-family: FontAwesome;
+    margin-left: 10px;
+}
+
+/* Customize the appearance of the icon */
+.extraordinary-btn::after {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+    body {
+      text-align: center;
+      padding: 40px 0;
+      background: #EBF0F5;
+    }
+    h1 {
+      color: #88B04B;
+      font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #404F5E;
+      font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+      font-size:20px;
+      margin: 0;
+    }
+    i {
+      color: #9ABC66;
+      font-size: 100px;
+      line-height: 200px;
+      margin-left:-15px;
+    }
+    .card {
+      background: white;
+      padding: 60px;
+      border-radius: 4px;
+      box-shadow: 0 2px 3px #C8D0D8;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    .btn {
+      background-color: #88B04B;
+      color: white;
+      font-size: 24px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #6C9341;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="border-radius: 50%; height: 200px; width: 200px; background: #F8FAF5; margin: 0 auto; display: flex; justify-content: center; align-items: center; font-size: 60px; color: #5cb85c; border: 5px solid #5cb85c;">
+        <i class="checkmark">✓</i>
+    </div>
+    <h1 style="text-align: center; color: #333;">Success</h1> 
+    <p style="text-align: center; color: #666;">Your order has been successfully placed<br/></p>
+
+    <!-- Styled buttons section -->
+    
+    <div class="button-container" style="display: flex; justify-content: center; margin-top: 20px;">
+        <a href="/" class="btn" style="text-decoration: none; background-color: #5bc0de; color: #fff; padding: 12px 20px; border-radius: 5px; transition: background-color 0.3s; margin: 0 5px;">Continue Shopping</a>
+        <button class="invoice-btn" onclick="downloadInvoice('<%= orderfind._id %>')" style="text-decoration: none; padding: 15px 40px; border-radius: 50px; background: linear-gradient(45deg, #FFD700, #FFA500); color: #ffffff; font-size: 20px; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s; margin: 0 5px;">Download Invoice</button>
+        <a href="/profileget" class="btn" style="text-decoration: none; background-color: #d9534f; color: #fff; padding: 12px 20px; border-radius: 5px; transition: background-color 0.3s; margin: 0 5px;">Go to Orders</a>
+    </div>
+</div>
+<script>
+function downloadInvoice(orderId) {
+  alert(orderId)
+    try {
+        // Fetch the invoice using GET request with the provided order ID
+        fetch(`/invoice/${orderId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/pdf' // Assuming the response is a PDF file
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to download invoice');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'invoice.pdf'; // Specify the default file name for download
+            link.style.display = 'none';
+            document.body.appendChild(link);
+
+            link.click();
+
+            // Clean up
+            setTimeout(() => {
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(link);
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error (e.g., display a message to the user)
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        // Handle error (e.g., display a message to the user)
+    }
+}
+
+</script>
+
+
+</body>
+</html>

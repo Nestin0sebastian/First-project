@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:07 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" href="/assetsb/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/assetsb/images/favicon.png" type="image/x-icon">
+    <title>Fastkart - Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.js"></script>
+  
+    <!-- Google font-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" href="/assetsb/css/linearicon.css">
+
+    <!-- fontawesome css -->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vendors/font-awesome.css">
+
+    <!-- Themify icon css-->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vendors/themify.css">
+
+    <!-- ratio css -->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/ratio.css">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/remixicon.css">
+
+    <!-- Feather icon css-->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vendors/feather-icon.css">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vendors/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vendors/animate.css">
+
+    <!-- Bootstrap css-->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vendors/bootstrap.css">
+
+    <!-- vector map css -->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/vector-map.css">
+
+    <!-- Slick Slider Css -->
+    <link rel="stylesheet" href="/assetsb/css/vendors/slick.css">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" href="/assetsb/css/style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include DataTables CSS and JS files -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <style>
+         tfoot td {
+            font-weight: bold; /* Bold text */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+        /* Example styles for the table */
+        .theme-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+    
+        .theme-table th, .theme-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    
+        .theme-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+    
+        .theme-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    
+        .theme-table tr:hover {
+            background-color: #f1f1f1;
+        }
+    
+        /* Button style */
+        .view-details-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #beautifulButton {
+            display: inline-block;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #4caf50, #2196f3);
+            color: #fff;
+            border: none;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        #beautifulButton:hover {
+            background: linear-gradient(45deg, #2196f3, #4caf50);
+            transform: scale(1.05);
+        }
+        
+        #beautifulRejectButton {
+            display: inline-block;
+            padding:8px 20px;
+            font-size:  14px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #f76252, #e8230d);
+            color: #fff;
+            border: none;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        #beautifulRejectButton:hover {
+            background: linear-gradient(45deg, #c0392b, #e74c3c);
+            transform: scale(1.05);
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- tap on top start -->
+    <div class="tap-top">
+        <span class="lnr lnr-chevron-up"></span>
+    </div>
+    <!-- tap on tap end -->
+
+    <!-- page-wrapper Start -->
+    <div class="page-wrapper compact-wrapper" id="pageWrapper">
+        <!-- Page Header Start -->
+        <div class="page-header">
+            <div class="header-wrapper m-0">
+                <div class="header-logo-wrapper p-0">
+                    <div class="logo-wrapper">
+                        <a href="index.html">
+                            <img class="img-fluid main-logo" src="/assetsb/images/logo/1.png" alt="logo">
+                            <img class="img-fluid white-logo" src="/assetsb/images/logo/1-white.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="toggle-sidebar">
+                        <i class="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
+                        <a href="index.html">
+                        </a>
+                    </div>
+                </div>
+<div>    <img src="https://document-export.canva.com/zjdXM/DAF6nGzjdXM/8/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20240124%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240124T193015Z&X-Amz-Expires=55144&X-Amz-Signature=1494b456921d4fe88e52045c43c106ce7dd101e8d35c1f27a10c1791bf2ed1a6&X-Amz-SignedHeaders=host&response-expires=Thu%2C%2025%20Jan%202024%2010%3A49%3A19%20GMT" height="110px" width="110px">
+</div><i><p>SoleHaven</p></i>
+               
+                <div class="nav-right col-6 pull-right right-header p-0">
+                    <ul class="nav-menus">
+                        <li>
+                            <span class="header-search">
+                                <i class="ri-search-line"></i>
+                            </span>
+                        </li>
+                        <li class="onhover-dropdown">
+                            <div class="notification-box">
+                                <i class="ri-notification-line"></i>
+                                <span class="badge rounded-pill badge-theme">4</span>
+                            </div>
+                            <ul class="notification-dropdown onhover-show-div">
+                                <li>
+                                    <i class="ri-notification-line"></i>
+                                    <h6 class="f-18 mb-0">Notitications</h6>
+                                </li>
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-primary"></i>Delivery processing <span
+                                            class="pull-right">10 min.</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-success"></i>Order Complete<span
+                                            class="pull-right">1 hr</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-info"></i>Tickets Generated<span
+                                            class="pull-right">3 hr</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        <i class="fa fa-circle me-2 font-danger"></i>Delivery Complete<span
+                                            class="pull-right">6 hr</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <a class="btn btn-primary" href="javascript:void(0)">Check all notification</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <div class="mode">
+                                <i class="ri-moon-line"></i>
+                            </div>
+                        </li>
+                        <li class="profile-nav onhover-dropdown pe-0 me-0">
+                            <div class="media profile-media">
+                                <img class="user-profile rounded-circle" src="/assetsb/images/users/4.jpg" alt="">
+                                <div class="user-name-hide media-body">
+                                    <span>Nestin Sebastian</span>
+                                    <p class="mb-0 font-roboto">Admin<i class="middle ri-arrow-down-s-line"></i></p>
+                                </div>
+                            </div>
+                            <ul class="profile-dropdown onhover-show-div">
+                                <li>
+                                    <a href="/admin/userlist">
+                                        <i data-feather="users"></i>
+                                        <span>Users</span>
+                                    </a> 
+                                </li>
+                                <li>
+                                    <a href="/admin/order">
+                                        <i data-feather="archive"></i>
+                                        <span>Orders</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/product">
+                                        <i data-feather="phone"></i>
+                                        <span>products</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/admin/fullcatagory">
+                                        <i data-feather="settings"></i>
+                                        <span>category</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                        href="/logout">
+                                        <i data-feather="log-out"></i>
+                                        <span>Log out</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+     Page Header End 
+
+         

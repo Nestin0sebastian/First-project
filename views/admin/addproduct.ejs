@@ -1,0 +1,292 @@
+<%- include('../partials/header.ejs')%>
+<%- include('../partials/slidebar.ejs')%>
+
+<div class="page-body">
+    <!-- New Product Add Start -->
+    <div class="container-fluid">
+        <form class="theme-form theme-form-2 mega-form" action="/admin/insertpost" method="post"
+            enctype="multipart/form-data" id="productForm">
+            <!-- File Input Field (Moved to the top) -->
+           <!-- File Input Field with Image Preview -->
+<!-- File Input Field with Image Preview -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Choose Image</label>
+    <div class="col-sm-9">
+        <input class="form-control" type="file" name="productImage" id="imageInput" accept="image/*" multiple>
+        <span class="error-message image-error" style="color: red;"></span>
+
+        <!-- Container to display selected images -->
+        <div id="selectedImagesContainer" class="mt-3"></div>
+    </div>
+</div>
+            <!-- Product Name Fields -->
+            <!-- Product Name Fields -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Product Name</label>
+    <div class="col-sm-9">
+        <input class="form-control" type="text" placeholder="Product Name" name="name">
+        <span class="error-message name-error" style="color: red;"></span>
+    </div>
+</div>
+
+<!-- Product Category Field -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Product Category</label>
+    <div class="col-sm-9">
+        <!-- Category select box -->
+        <select name="category" style="width: 100%;">
+            <option value="">Select a Category</option>
+            <% category.forEach((cat) => { %>
+                <option value="<%= cat._id %>"><%= cat.name %></option>
+            <% }); %>
+        </select>
+        <span class="error-message category-error" style="color: red;"></span>
+    </div>
+</div>
+
+<!-- Description Field -->
+<!-- Description Field -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Description</label>
+    <div class="col-sm-9">
+        <!-- Description input -->
+        <textarea class="form-control" placeholder="Description" name="description"></textarea>
+        <span class="error-message description-error" style="color: red;"></span>
+    </div>
+</div>
+
+<!-- Your scripts -->
+
+
+
+<!-- Current Quantity Field -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Current Quantity</label>
+    <div class="col-sm-9">
+        <input class="form-control" type="text" placeholder="Current Quantity" name="quantity">
+        <span class="error-message quantity-error" style="color: red;"></span>
+    </div>
+</div>
+
+<!-- Price Field -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Price</label>
+    <div class="col-sm-9">
+        <input class="form-control" type="text" placeholder="Price" name="price">
+        <span class="error-message price-error" style="color: red;"></span>
+    </div>
+</div>
+
+<!-- Size Dropdown Field -->
+<div class="mb-4 row align-items-center">
+    <label class="form-label-title col-sm-3 mb-0">Size</label>
+    <div class="col-sm-9">
+        <select class="form-control" name="size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="extra-large">Extra Large</option>
+        </select>
+        <span class="error-message size-error" style="color: red;"></span>
+    </div>
+</div>
+
+<!-- Submit Button -->
+<div class="mb-4 row align-items-center">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-9">
+        <button class="btn btn-primary" type="submit" id="submitBtn">Submit</button>
+    </div>
+</div>
+
+            <!-- Submit Button -->
+         
+<!-- Your other code -->
+<!-- ... -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('productForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        submitBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            const inputs = form.querySelectorAll('input[type="text"], input[type="file"], select');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                const value = input.value.trim();
+
+                if (value === '' || (input.type === 'file' && input.accept !== 'image/*')) {
+                    isValid = false;
+                    const errorMessage = input.parentNode.querySelector('.error-message');
+                    if (errorMessage) {
+                        errorMessage.textContent = input.type === 'file' ? 'Please select an image file' : 'Field cannot be blank';
+                    }
+                }
+            });
+
+            // Additional validation for Price and Quantity
+            const priceField = form.querySelector('input[name="price"]');
+            const quantityField = form.querySelector('input[name="quantity"]');
+            
+            if (parseFloat(priceField.value) < 0 || isNaN(parseFloat(priceField.value))) {
+                isValid = false;
+                document.querySelector('.price-error').textContent = 'Price must be a positive number';
+            }
+
+            if (parseInt(quantityField.value) < 0 || isNaN(parseInt(quantityField.value))) {
+                isValid = false;
+                document.querySelector('.quantity-error').textContent = 'Quantity must be a positive integer';
+            }
+
+            if (isValid) {
+                form.submit();
+            }
+        });
+    });
+</script>
+
+<!-- Your other scripts -->
+<!-- ... -->
+<script></script>
+    <!-- latest js -->
+    <script src="/assetsb/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="/assetsb/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="/assetsb/js/icons/feather-icon/feather.min.js"></script>
+    <script src="/assetsb/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="/assetsb/js/scrollbar/simplebar.js"></script>
+    <script src="/assetsb/js/scrollbar/custom.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="/assetsb/js/config.js"></script>
+
+    <!-- bootstrap tag-input js -->
+    <script src="/assetsb/js/bootstrap-tagsinput.min.js"></script>
+    <script src="/assetsb/js/sidebar-menu.js"></script>
+
+    <!-- customizer js -->
+    <script src="/assetsb/js/customizer.js"></script>
+
+    <!--Dropzon js -->
+    <script src="/assetsb/js/dropzone/dropzone.js"></script>
+    <script src="/assetsb/js/dropzone/dropzone-script.js"></script>
+
+    <!-- Plugins js -->
+    <script src="/assetsb/js/notify/bootstrap-notify.min.js"></script>
+    <script src="/assetsb/js/notify/index.js"></script>
+
+    <!-- ck editor js -->
+    <script src="/assetsb/js/ckeditor.js"></script>
+    <script src="/assetsb/js/ckeditor-custom.js"></script>
+
+    <!-- select2 js -->
+    <script src="/assetsb/js/select2.min.js"></script>
+    <script src="/assetsb/js/select2-custom.js"></script>
+
+    <!-- sidebar effect -->
+    <script src="/assetsb/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="/assetsb/js/script.js"></script>
+<script>
+
+
+
+document.getElementById('imageInput').addEventListener('change', handleImageChange);
+
+function handleImageChange(event) {
+    const selectedImagesContainer = document.getElementById('selectedImagesContainer');
+    const existingFiles = selectedImagesContainer.dataset.selectedFiles ? JSON.parse(selectedImagesContainer.dataset.selectedFiles) : [];
+
+    // Clear the container
+    selectedImagesContainer.innerHTML = '';
+
+    // Append the existing images back to the container
+    existingFiles.forEach(file => {
+        appendImageToContainer(file, existingFiles, target);
+    });
+
+    const files = event.target.files;
+    console.log(event.target.files);
+
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        appendImageToContainer(file, existingFiles, event.target);
+    }
+
+    // Save the updated list of selected files to the data attribute
+    selectedImagesContainer.dataset.selectedFiles = JSON.stringify(existingFiles);
+}
+
+function appendImageToContainer(file, existingFiles, target) {
+    // Display selected image
+    const imgElement = document.createElement('img');
+    imgElement.src = URL.createObjectURL(file);
+    imgElement.alt = `Selected Image`;
+    imgElement.style.width = '100px';
+    imgElement.style.marginRight = '10px';
+
+    // Button to remove the selected image
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'Remove';
+    removeButton.type = 'button';
+    removeButton.className = 'btn btn-danger btn-sm';
+
+    // Create a container div for each image and its remove button
+    const containerDiv = document.createElement('div');
+    containerDiv.className = 'image-container'; // Add a class to identify image containers
+    containerDiv.appendChild(imgElement);
+    containerDiv.appendChild(removeButton);
+
+    // Add an event listener to the remove button
+    removeButton.addEventListener('click', function () {
+        // Remove the container div, which includes both the image and the remove button
+        selectedImagesContainer.removeChild(containerDiv);
+
+        // Update the list of selected files after removing one
+        const updatedFiles = existingFiles.filter(f => f !== file);
+        selectedImagesContainer.dataset.selectedFiles = JSON.stringify(updatedFiles);
+
+        // Clear the specific file from the input
+        const indexToRemove = Array.from(target.files).indexOf(file);
+        removeFileFromFileList(indexToRemove);
+        // if (indexToRemove !== -1) {
+        //     target.value = ''; // Clear the input value
+        //     // Trigger the change event to update the file list
+        //     const changeEvent = new Event('change', { bubbles: true });
+        //     target.dispatchEvent(changeEvent);
+        // }
+
+       function removeFileFromFileList(index) {
+        const dt = new DataTransfer()
+        const input = document.getElementById('imageInput')
+        const { files } = input
+        
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i]
+            if (index !== i)
+            dt.items.add(file) // here you exclude the file. thus removing it.
+        }
+        
+        input.files = dt.files // Assign the updates list
+        }
+    });
+
+    // Append the container div to the main container
+    selectedImagesContainer.appendChild(containerDiv);
+}
+
+</script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:46 GMT -->
+</html>
+

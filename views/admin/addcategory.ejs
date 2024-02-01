@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Category</title>
+    <!-- Add your CSS and other meta tags here -->
+    <style>
+        .error-message {
+            color: red;
+            display: block;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('../partials/header.ejs')%>
+        <%- include('../partials/slidebar.ejs')%>
+
+            <div class="page-body">
+                <!-- New Product Add Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-8 m-auto">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-header-2">
+                                                <h5>Category Information</h5>
+                                            </div>
+
+                                            <form class="theme-form theme-form-2 mega-form" action="/admin/addcategory"
+                                                enctype="multipart/form-data" method="post">
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="form-label-title col-sm-3 mb-0">Category Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" name="name" type="text"
+                                                            placeholder="Category Name">
+                                                        <span class="error-message category-name-error"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-4 row align-items-center">
+                                                    <label class="col-sm-3 col-form-label form-label-title">Category
+                                                        Image</label>
+                                                    <div class="form-group col-sm-9">
+                                                        <div class="dropzone-wrapper">
+                                                            <input type="file" style="width: 100%;" name="categoryImage"
+                                                                id="categoryImage" class="dopzone">
+                                                            <center>
+                                                                <button class="btn btn-primary" type="button"
+                                                                    onclick="cropBanner('categoryImage')"
+                                                                    id="crop_categoryImage"
+                                                                    style="display: block;">Crop</button>
+                                                            </center>
+                                                            <span class="error-message category-image-error"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <center>
+                                                    <img src="" id="show_categoryImage" alt="">
+                                                    <button class="btn btn-primary" style="display: none; margin-top: 30px;" type="button"
+                                                        onclick="uploadBannerImage('categoryImage')"
+                                                        id="save_categoryImage">Save</button>
+                                                    <button class="btn btn-primary" style="display: none; margin-top: 20px;" type="button"
+                                                        id="cancel_categoryImage">Cancel</button>
+                                                </center>
+
+                                                <div class="mb-4 row align-items-center" style="margin-top: 30px;">
+                                                    <label class="col-sm-3 form-label-title">Description</label>
+                                                    <div class="col-sm-9">
+                                                        <div class="dropdown icon-dropdown">
+                                                            <input class="form-control" name="description" type="text"
+                                                                placeholder="Description">
+                                                            <span
+                                                                class="error-message category-description-error"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <button type="submit" class="btn btn-success">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- New Product Add End -->
+
+                <!-- footer Start -->
+                <div class="container-fluid">
+                    <footer class="footer">
+                        <div class="row">
+                            <div class="col-md-12 footer-copyright text-center">
+                                <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <!-- footer End -->
+            </div>
+            <!-- page-wrapper End -->
+
+            <!-- Modal Start -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog  modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                            <p>Are you sure you want to log out?</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                            <div class="button-box">
+                                <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                                <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal End -->
+
+            <!-- JavaScript code for validation -->
+
+
+
+
+
+
+            
+            <script>
+                let cropper;
+
+                function uploadBannerImage(id) {
+                    const canvas = cropper.getCroppedCanvas();
+                    if (canvas) {
+                        canvas.toBlob((blob) => {
+                            const fileName = 'croppedImage.jpg';
+                            const file = new File([blob], fileName, { type: 'image/jpeg' });
+                            const input = document.getElementById(id);
+
+                            if (DataTransfer && FileList) {
+                                const dataTransfer = new DataTransfer();
+                                dataTransfer.items.add(file);
+                                input.files = dataTransfer.files;
+                            } else {
+                                console.error('FileList and DataTransfer are not supported in this browser.');
+                            }
+
+                            const showImg = document.getElementById(`show_${id}`);
+                            showImg.src = URL.createObjectURL(blob);
+
+                            cropper.destroy();
+                        });
+                        document.getElementById('save_' + id).style.display = 'none'
+                    }
+                }
+
+
+
+
+
+
+                function cropBanner(id) {
+                    const input = document.getElementById(id);
+                    const canvas = document.getElementById(`show_${id}`);
+                    const file = input.files[0];
+
+                    if (file) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            canvas.src = e.target.result;
+                            if (cropper) {
+                                cropper.destroy();
+                            }
+
+                            cropper = new Cropper(canvas, {
+                                viewMode: 2,
+                            });
+                        };
+                        reader.readAsDataURL(file);
+                        document.getElementById(`save_${id}`).style.display = 'block'
+                    } else {
+                        canvas.src = '';
+                        if (cropper) {
+                            cropper.destroy();
+                        }
+                    }
+                }
+
+
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.querySelector('.mega-form');
+
+                    form.addEventListener('submit', function (event) {
+                        let isValid = true;
+
+                        // Category Name Validation
+                        const categoryNameInput = document.querySelector('input[name="name"]');
+                        const categoryNameErrorMessage = document.querySelector('.category-name-error');
+                        const categoryName = categoryNameInput.value.trim(); // Trimmed value
+
+                        if (!categoryName) {
+                            categoryNameErrorMessage.textContent = 'Category name is required';
+                            isValid = false;
+                        } else if (!/^[a-zA-Z\s]+$/.test(categoryName)) {
+                            categoryNameErrorMessage.textContent = 'Enter a proper category name';
+                            isValid = false;
+                        } else {
+                            categoryNameErrorMessage.textContent = '';
+                        }
+
+                        // Category Image Validation
+                        const categoryImageInput = document.querySelector('input[name="categoryImage"]');
+                        const categoryImageErrorMessage = document.querySelector('.category-image-error');
+                        const file = categoryImageInput.files[0];
+
+                        if (!file) {
+                            categoryImageErrorMessage.textContent = 'Category image is required';
+                            isValid = false;
+                        } else if (!file.type.startsWith('image/')) {
+                            categoryImageErrorMessage.textContent = 'Choose an image file';
+                            isValid = false;
+                        } else {
+                            categoryImageErrorMessage.textContent = '';
+                        }
+
+                        // Description Validation
+                        const descriptionInput = document.querySelector('input[name="description"]');
+                        const descriptionErrorMessage = document.querySelector('.category-description-error');
+                        const description = descriptionInput.value.trim(); // Trimmed value
+
+                        if (!description) {
+                            descriptionErrorMessage.textContent = 'Description is required';
+                            isValid = false;
+                        } else if (!/^[a-zA-Z\s]+$/.test(description)) {
+                            descriptionErrorMessage.textContent = 'Enter a proper description';
+                            isValid = false;
+                        } else {
+                            descriptionErrorMessage.textContent = '';
+                        }
+
+                        if (!isValid) {
+                            event.preventDefault(); // Prevent form submission
+                        }
+                    });
+                });
+            </script>
+
+            <!-- Latest JavaScript imports and other scripts -->
+            <script src="assetsb/js/jquery-3.6.0.min.js"></script>
+            <!-- Add other JS imports here -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+</body>
+
+</html>

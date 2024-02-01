@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to top, #0a6051, #4bb084);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 800px;
+            max-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h2 {
+            color: #333333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333333;
+        }
+
+        input,
+        textarea,
+        select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-to-home {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .back-to-home:hover {
+            background-color: #0056b3;
+        }
+
+        .generate-code-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: auto;
+            margin-top: 15px;
+        }
+
+        .generate-code-button:hover {
+            background-color: #45a049;
+        }
+
+        .bigger-code {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000000;
+        }
+        .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;}
+    </style>
+</head>
+
+
+<body>
+    <div class="form-container">
+        <h2>Product & catagory Offer</h2>
+        <form action="/admin/productofferpost" method="post">
+            <!-- <label for="discount_percentage">offer Name</label> -->
+
+            <div>
+                
+                <input type="text"  name="offerName"    id="offerName" placeholder="Enter offer Name">
+            </div>
+            
+            <div class="form-group">
+                <label for="type">Choose Type</label>
+                <select id="typeSelector" name="type" required onchange="showDropdown()">
+                    <option value="product">Product</option>
+                    <option value="category">Category</option>
+                </select>
+            </div>
+            
+            <div id="categoryDropdown" class="form-group" style="display: none;">
+                <label for="category">Choose Category</label>
+                <select id="category" name="category" required>
+                    <% catagory.forEach((cat) => { %>
+                    <option value="<%= cat.name %>"><%= cat.name %></option>
+                    <% }); %>
+                </select>
+            </div>
+            
+            <div id="productDropdown" class="form-group" style="display: none;">
+                <label for="product">Choose Product</label>
+                <select id="product" name="product" required>
+                    <% products.forEach((product) => { %>
+                    <option value="<%= product.productName %>"><%= product.productName %></option>
+                    <% }); %>
+                </select>
+            </div>
+            
+         <!-- Add an additional hidden input field to store the selected dropdown value -->
+<input type="hidden" id="selectedType" name="selectedType" value="">
+
+<script>
+    function showDropdown() {
+        var typeSelector = document.getElementById("typeSelector");
+        var selectedTypeInput = document.getElementById("selectedType");
+        var categoryDropdown = document.getElementById("categoryDropdown");
+        var productDropdown = document.getElementById("productDropdown");
+
+        // Set the selectedType value to the dropdown value
+        selectedTypeInput.value = typeSelector.value;
+
+        if (typeSelector.value === "category") {
+            categoryDropdown.style.display = "block";
+            productDropdown.style.display = "none";
+        } else if (typeSelector.value === "product") {
+            categoryDropdown.style.display = "none";
+            productDropdown.style.display = "block";
+        }
+    }
+</script>
+
+            
+
+            <div class="form-group">
+                <!-- <label for="discount_percentage">Discount Percentage</label> -->
+                <input type="text" id="discount_percentage" name="discount_percentage" placeholder="Enter Discount Percentage" required>
+            </div>
+
+            <div class="form-group">
+                <!-- <label for="max_discount_amount">Max Discount Amount</label> -->
+                <input type="text" id="max_discount_amount" name="max_discount_amount" placeholder="Enter Max Discount Amount" required>
+            </div>
+                <label for="max_discount_amount">Start date </label>
+
+            <div class="form-group">
+                <!-- <label for="expire_date">Expire Date</label> -->
+                <input type="date" id="expire_date" name="start_date" required>
+            </div>
+        
+            
+                <label for="max_discount_amount">End date</label>
+
+            <div class="form-group">
+                <!-- <label for="expire_date">Expire Date</label> -->
+                <input type="date" id="expire_date" name="expire_date"  required>
+            </div>
+
+            <button type="submit">Submit</button>
+            <a href="/admin/">
+                <button type="button" class="back-to-home">Back to Home</button>
+            </a>
+        </form>
+    </div>
+    <script>
+        function generateCode() {
+            const randomCode = generateRandomCode(12).toUpperCase();
+            const couponCodeInput = document.getElementById('couponcode');
+            couponCodeInput.value = randomCode;
+            couponCodeInput.classList.add('bigger-code');
+        }
+
+        function generateRandomCode(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+        
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.querySelector('form');
+  
+      form.addEventListener('submit', function (event) {
+        if (!validateForm()) {
+          event.preventDefault();
+        }
+      });
+  
+      function validateForm() {
+        const offerName = document.getElementById('offerName').value.trim();
+        const discountPercentage = document.getElementById('discount_percentage').value.trim();
+        const maxDiscountAmount = document.getElementById('max_discount_amount').value.trim();
+        const expireDate = document.getElementById('expire_date').value.trim();
+  
+        const errors = [];
+  
+        // Validate Offer Name
+        if (offerName === '') {
+          displayError('offerName', 'Offer Name cannot be blank.');
+          errors.push('Offer Name cannot be blank.');
+        } else {
+          clearError('offerName');
+        }
+  
+        // Validate Discount Percentage
+        if (discountPercentage === '' || isNaN(discountPercentage) || +discountPercentage < 1) {
+          displayError('discount_percentage', 'Enter a valid percentage.');
+          errors.push('Discount Percentage must be a number greater than or equal to 1.');
+        } else {
+          clearError('discount_percentage');
+        }
+  
+        // Validate Max Discount Amount
+        if (maxDiscountAmount === '' || isNaN(maxDiscountAmount) || +maxDiscountAmount < 1) {
+          displayError('max_discount_amount', 'Enter a valid amount.');
+          errors.push('Max Discount Amount must be a number greater than or equal to 1.');
+        } else {
+          clearError('max_discount_amount');
+        }
+  
+        // Validate Expire Date
+        if (expireDate === '') {
+          displayError('expire_date', 'Expire Date cannot be blank.');
+          errors.push('Expire Date cannot be blank.');
+        } else {
+          clearError('expire_date');
+        }
+  
+        // Return true if there are no errors
+        return errors.length === 0;
+      }
+  
+      function displayError(fieldId, errorMessage) {
+        const field = document.getElementById(fieldId);
+        clearError(fieldId);
+  
+        const errorContainer = document.createElement('div');
+        errorContainer.classList.add('error-message');
+        errorContainer.textContent = errorMessage;
+        field.parentNode.appendChild(errorContainer);
+      }
+  
+      function clearError(fieldId) {
+        const field = document.getElementById(fieldId);
+        const errorContainer = field.parentNode.querySelector('.error-message');
+  
+        if (errorContainer) {
+          errorContainer.remove();
+        }
+      }
+    });
+</script>
+
+</body>
+
+
+
+</html>

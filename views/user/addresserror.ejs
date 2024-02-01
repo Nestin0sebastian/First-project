@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Existing Address Alert</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: linear-gradient(to right, #ff8c00, #ff2d55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #ff2d55;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            background: linear-gradient(to right, #ff8c00, #ff2d55);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: linear-gradient(to right, #ff2d55, #ff8c00);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Oops!</h1>
+        <p>You entered an existing address !</p>
+     
+    </div>
+    <script>
+        // Automatically redirect after 5 seconds
+        setTimeout(function() {
+            window.location.href = '/profileget';
+        }, 3000);
+    </script>
+    
+</body>
+</html>

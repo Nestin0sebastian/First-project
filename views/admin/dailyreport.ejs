@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    
+
+  tfoot {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  tfoot td {
+    padding: 10px;
+    border-top: 2px solid #ddd;
+  }
+
+  tfoot td:first-child {
+    text-align: left;
+  }
+
+  tfoot td:last-child {
+    text-align: right;
+  }
+
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="button-container">
+    <button class="btn" style="background-color: blue; color: white;" onclick="window.print()">Print</button>
+    <a href="/admin/" class="button">Back to Home</a>
+  </div>
+
+  <h2>Daily Sales Report</h2>
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Order ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% 
+        let totalAmountToday = 0;
+  
+        // Flatten the data array and sort it by date in descending order
+        const flattenedData = data.reduce((acc, report) => {
+          report.products.reverse().forEach((product) => {
+            const reportDate = new Date(report.date);
+            if (report.orderStatus !== 'cancelled' && reportDate.toDateString() === new Date().toDateString()) {
+              totalAmountToday += product.total; // Accumulate the total amount for today
+              acc.push({
+                date: report.date,
+                orderId: report.orderId,
+                productName: product.productId.productName,
+                price: product.productId.price,
+                quantity: product.quantity,
+                total: product.total,
+              });
+            }
+          });
+          return acc;
+        }, []);
+  
+        // Sort the flattenedData array by date in descending order
+        flattenedData.sort((a, b) => new Date(b.date) - new Date(a.date));
+  
+        // Render the rows
+        flattenedData.forEach((entry) => {
+      %>
+          <tr>
+            <td><%= formatDate(entry.date) %></td>
+            <td><%= entry.orderId %></td>
+            <td><%= entry.productName %></td>
+            <td>₹<%= entry.price %></td>
+            <td><%= entry.quantity %></td>
+            <td>₹<%= entry.total %></td>
+          </tr>
+      <% 
+        });
+      %>
+    </tbody>
+    
+    <!-- Display the total amount for today outside the loop -->
+    <tfoot>
+      <tr>
+        <td colspan="5" style="text-align: left;">Total Amount for Today:</td>
+        <td style="text-align: right;">₹<%= totalAmountToday.toFixed(2) %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <% function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  } %>
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+  <script>
+    // Custom search plugin for date formats like "23 Jan 2024" and product name
+    $.fn.dataTable.ext.type.search.custom = function (data) {
+      return data ? data.toLowerCase() : '';
+    };
+  
+    $(document).ready(function () {
+      // Initialize DataTable with custom search options
+      $('#dataTable').DataTable({
+        "paging": true,
+        "pageLength": 10,
+        "order": [[0, "desc"]],
+        "columnDefs": [
+          {
+            "targets": [0], // Date column index
+            "type": "dateFormatted" // Use custom date type for searching
+          },
+          {
+            "targets": [2], // Product Name column index
+            "type": "custom" // Use custom search type for product name
+          }
+        ]
+      });
+    });
+  </script>
+  
+
+  </script>
+  
+</body>
+
+</html>

@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page with Username and Password Example</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"><link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="/assets/css/login.css">
+
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Molla - Bootstrap eCommerce Template</title>
+<meta name="keywords" content="HTML5 Template">
+<meta name="description" content="Molla - Bootstrap eCommerce Template">
+<meta name="author" content="p-themes">
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+<link rel="manifest" href="assets/images/icons/site.html">
+<link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+<link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+<meta name="apple-mobile-web-app-title" content="Molla">
+<meta name="application-name" content="Molla">
+<meta name="msapplication-TileColor" content="#cc9966">
+<meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+<!-- Plugins CSS File -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+<link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
+<!-- Main CSS File -->
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/skins/skin-demo-6.css">
+<link rel="stylesheet" href="assets/css/demos/demo-6.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">    <style>
+  
+        /* Your CSS styles for the alert message */
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none;
+            position: relative;
+            color: red;
+        }
+
+        /* Colors for different alert types */
+        .alert.success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .alert.error {
+            background-color: #f44336;
+            color: white;
+        }
+    
+   body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(to top, #000000, #000000);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      width: 400px;
+      margin: auto;
+    }
+
+    .form-box {
+      background: #FFF;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      text-align: center;
+    }
+
+    .form-title {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .form-group input[type="submit"] {
+      background-color: #FFA500;
+      color: #FFF;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-group input[type="submit"]:hover {
+      background-color: #FF8000;
+    }
+
+    .forgot-link {
+      font-size: 12px;
+      color: #666;
+      text-decoration: none;
+    }
+
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
+
+    .social-login {
+      margin-top: 20px;
+    }
+
+    .btn-google,
+    .btn-facebook {
+      display: inline-block;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      color: #FFF;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn-google {
+      background-color: #DB4437;
+    }
+
+    .btn-facebook {
+      background-color: #3B5998;
+    }
+
+    .btn-google:hover,
+    .btn-facebook:hover {
+      opacity: 0.8;
+    }
+    .form-box {
+        background-image: url('https://i.pinimg.com/564x/b3/41/d5/b341d5b1ae00783719c2b2a81106d4e5.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+
+    .form-group label {
+        color: #fff;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .btn-login {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 20px;
+        cursor: pointer;
+    }
+
+    .btn-login:hover {
+        background-color: #45a049;
+    }
+
+    .form-choice a {
+        color: #4CAF50;
+    }
+
+    .form-choice a:hover {
+        text-decoration: underline;
+    }
+
+    .btn-login.btn-g,
+    .btn-login.btn-f {
+        color: #fff;
+        text-align: left;
+    }
+
+    .btn-login.btn-g {
+        background-color: #dd4b39;
+    }
+
+    .btn-login.btn-f {
+        background-color: #3b5998;
+    }
+
+    /* Additional styles for responsiveness */
+    @media (max-width: 767px) {
+        .form-box {
+            margin: 0;
+        }
+    }
+    .form-box {
+        background-image: url('https://i.pinimg.com/564x/b3/41/d5/b341d5b1ae00783719c2b2a81106d4e5.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+
+    .form-group label {
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        border: none;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        background-color: #f3f3f3;
+    }
+
+    .btn-login {
+        background-color: #ff3b3f; /* Red color */
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 30px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease-in-out;
+        box-shadow: 0 4px 6px rgba(255, 59, 63, 0.2); /* Added box shadow for emphasis */
+    }
+
+    .btn-login:hover {
+        background-color: #d12e31; /* Darker red on hover */
+    }
+
+    .form-choice a {
+        color: #4CAF50;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .form-choice a:hover {
+        color: #45a049;
+        text-decoration: underline;
+    }
+
+    .btn-login.btn-g,
+    .btn-login.btn-f {
+        color: #fff;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .btn-login.btn-g {
+        background-color: #dd4b39;
+    }
+
+    .btn-login.btn-f {
+        background-color: #3b5998;
+    }
+
+    /* Additional styles for responsiveness */
+    @media (max-width: 767px) {
+        .form-box {
+            margin: 0;
+            padding: 30px;
+        }
+    }    .form-box {
+        background-image: url('https://i.pinimg.com/564x/b3/41/d5/b341d5b1ae00783719c2b2a81106d4e5.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+
+    .form-group label {
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        border: none;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        background-color: #f3f3f3;
+    }
+
+    .btn-login {
+        background: linear-gradient(90deg, #ff3b3f 0%, #ff8e4d 100%); /* Gradient from red to orange */
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 30px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 8px 12px rgba(255, 59, 63, 0.3); /* More pronounced shadow effect */
+    }
+
+    .btn-login:hover {
+        background: linear-gradient(90deg, #d12e31 0%, #ff7d3e 100%); /* Darker red to darker orange on hover */
+        box-shadow: 0 10px 15px rgba(255, 59, 63, 0.4); /* Shadow effect on hover */
+    }
+
+    .form-choice a {
+        color: #4CAF50;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .form-choice a:hover {
+        color: #45a049;
+        text-decoration: underline;
+    }
+
+    .btn-login.btn-g,
+    .btn-login.btn-f {
+        color: #fff;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .btn-login.btn-g {
+        background-color: #dd4b39;
+    }
+
+    .btn-login.btn-f {
+        background-color: #3b5998;
+    }
+
+    /* Additional styles for responsiveness */
+    @media (max-width: 767px) {
+        .form-box {
+            margin: 0;
+            padding: 30px;
+        }
+    }  .form-box {
+        background-image: url('https://i.pinimg.com/564x/b3/41/d5/b341d5b1ae00783719c2b2a81106d4e5.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+
+    .form-group label {
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        border: none;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        background-color: #f3f3f3;
+    }
+
+    .btn-login {
+        background: linear-gradient(90deg, #ff3b3f 0%, #ff8e4d 100%); /* Gradient from red to orange */
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 30px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 8px 12px rgba(255, 59, 63, 0.3); /* More pronounced shadow effect */
+    }
+
+    .btn-login:hover {
+        background: linear-gradient(90deg, #d12e31 0%, #ff7d3e 100%); /* Darker red to darker orange on hover */
+        box-shadow: 0 10px 15px rgba(255, 59, 63, 0.4); /* Shadow effect on hover */
+    }
+
+    .form-choice a {
+        color: #4CAF50;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .form-choice a:hover {
+        color: #45a049;
+        text-decoration: underline;
+    }
+
+    .btn-login.btn-g,
+    .btn-login.btn-f {
+        color: #fff;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .btn-login.btn-g {
+        background-color: #dd4b39;
+    }
+
+    .btn-login.btn-f {
+        background-color: #3b5998;
+    }
+
+    /* Additional styles for responsiveness */
+    @media (max-width: 767px) {
+        .form-box {
+            margin: 0;
+            padding: 30px;
+        }
+    }
+     .form-box {
+        background-image: url('https://i.pinimg.com/564x/b3/41/d5/b341d5b1ae00783719c2b2a81106d4e5.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+
+    .form-group label {
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        border: none;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        background-color: #f3f3f3;
+    }
+
+    .btn-login {
+        background: linear-gradient(90deg, #ff3b3f 0%, #ff8e4d 100%); /* Gradient from red to orange */
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 30px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 8px 12px rgba(255, 59, 63, 0.3); /* More pronounced shadow effect */
+    }
+
+    .btn-login:hover {
+        background: linear-gradient(90deg, #d12e31 0%, #ff7d3e 100%); /* Darker red to darker orange on hover */
+        box-shadow: 0 10px 15px rgba(255, 59, 63, 0.4); /* Shadow effect on hover */
+    }
+
+    .form-choice a {
+        color: #4CAF50;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .form-choice a:hover {
+        color: #45a049;
+        text-decoration: underline;
+    }
+
+    .btn-login.btn-g,
+    .btn-login.btn-f {
+        color: #fff;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .btn-login.btn-g {
+        background-color: #dd4b39;
+    }
+
+    .btn-login.btn-f {
+        background-color: #3b5998;
+    }
+
+    .btn-outline-primary-2 {
+        background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); /* Gradient from light to dark blue */
+        border: 2px solid #2980b9; /* Border color matches the dark blue */
+        color: #fff;
+        border-radius: 8px;
+        padding: 15px 30px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .btn-outline-primary-2:hover {
+        background: linear-gradient(90deg, #2980b9 0%, #1f6690 100%); /* Darker blue to even darker blue on hover */
+        color: #fff;
+    }
+
+    /* Additional styles for responsiveness */
+    @media (max-width: 767px) {
+        .form-box {
+            margin: 0;
+            padding: 30px;
+        }
+    }.form-box {
+        background-image: url('https://wallpapercave.com/wp/wp2971379.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        text-align: center;
+    }
+
+    .form-box-content {
+        color: #fff;
+    }
+
+    .form-group label {
+        color: #fff;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        border: none;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        width: 100%;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .form-control:focus {
+        background-color: #f3f3f3;
+    }
+
+    .btn-login {
+        background: linear-gradient(90deg, #ff3b3f 0%, #ff8e4d 100%); /* Gradient from red to orange */
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 15px 20px; /* Adjusted padding for decreased width */
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: 0 8px 12px rgba(255, 59, 63, 0.3); /* More pronounced shadow effect */
+    }
+
+    .btn-login:hover {
+        background: linear-gradient(90deg, #d12e31 0%, #ff7d3e 100%); /* Darker red to darker orange on hover */
+        box-shadow: 0 10px 15px rgba(255, 59, 63, 0.4); /* Shadow effect on hover */
+    }
+
+    .form-choice a {
+        color: #4CAF50;
+        font-size: 14px;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .form-choice a:hover {
+        color: #45a049;
+        text-decoration: underline;
+    }
+
+    .btn-login.btn-g,
+    .btn-login.btn-f {
+        color: #fff;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .btn-login.btn-g {
+        background-color: #dd4b39;
+    }
+
+    .btn-login.btn-f {
+        background-color: #3b5998;
+    }
+
+    .btn-outline-primary-2 {
+        background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); /* Gradient from light to dark blue */
+        border: 2px solid #2980b9; /* Border color matches the dark blue */
+        color: #fff;
+        border-radius: 8px;
+        padding: 15px 20px; /* Adjusted padding for decreased width */
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    }
+
+    .btn-outline-primary-2:hover {
+        background: linear-gradient(90deg, #2980b9 0%, #1f6690 100%); /* Darker blue to even darker blue on hover */
+        color: #fff;
+    }
+
+    /* Additional styles for responsiveness */
+    @media (max-width: 767px) {
+        .form-box {
+            margin: 0;
+            padding: 30px;
+        }
+    }.form-group a.forgot-link {
+        color: #fff; /* Set link color to white */
+        text-decoration: none; /* Remove underline */
+        font-weight: bold; /* Make the text bold for emphasis */
+        transition: color 0.3s ease-in-out; /* Smooth color transition on hover */
+    }
+
+    .form-group a.forgot-link:hover {
+        color: #ff8e4d; /* Change color on hover, adjust as needed */
+    }
+    .text-center a {
+        color: #fff;
+        font-weight: bold;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .text-center a:hover {
+        color: #ff8e4d; /* Change color on hover, adjust as needed */
+    }.text-center {
+    position: absolute;
+    bottom: 150px; /* Adjust the value as needed */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+    
+  </style>
+
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+
+<body class="align">
+
+    <h2 style="color: white; font-family: 'fantasy'; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 8px; text-align: center; background: linear-gradient(to right, #000000, #000000); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">Login</h2>
+
+
+    <div class="form-box">
+
+           
+      <div id="alertBox" class="alert"></div>
+                    <form action="/loginpost"  method="post">
+                        <div class="form-group">
+                            <!-- <label for="singin-email">Username or email address *</label> -->
+                            <input type="text" class="form-control"  id="singin-email" placeholder="Email" name="email" required onkeyup="validateEmail()">
+                            <span id="loginemail"  class="text-danger" class="error"></span>
+                        </div><!-- End .form-group -->
+
+                        <div class="form-group">
+                            <!-- <label for="singin-password">Password *</label> -->
+                            <input type="password"  class="form-control" id="singin-password" placeholder="Password"  name="password" required  onkeyup="validatePassword()">
+                            <span id="loginpassword"  class="text-danger" class="error"></span>
+                        </div><!-- End .form-group -->
+                        <div class="form-group">
+                            <a href="/forgetemail" class="forgot-link">Forgot Your Password?</a>
+                        </div>
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-outline-primary-2" onclick=" return validateform()">
+                                <span> LOG IN</span>
+                                
+
+                                <i class="icon-long-arrow-right"></i>
+                            </button>
+                            <span id="loginbutton"  class='text-white' class="error"></span>
+
+
+                            <div class="form-group">
+
+                         
+                            </div>
+                            <!-- <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="signin-remember">
+                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
+                            </div>End .custom-checkbox -->
+
+                          
+                        </div><!-- End .form-footer -->
+                    </form>
+                    <div class="form-choice">
+                        <p class="text-center"><a href="/signup">Don't have an account?</a></p>
+                        <!-- <div class="row">
+                            <div class="col-sm-6">
+                                <a href="#" class="btn btn-login btn-g">
+                                    <i class="icon-google"></i>
+                                    Login With Google
+                                </a>
+                            </div>End .col-6
+                            <div class="col-sm-6">
+                                <a href="#" class="btn btn-login btn-f">
+                                    <i class="icon-facebook-f"></i>
+                                    Login With Facebook
+                                </a>
+                            </div>End .col-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .form-choice -->
+                
+               
+            
+       
+    </div><!-- End .form-box -->
+
+
+</body>
+<!-- partial -->
+<script src="/loginvalidation.js"></script>
+
+ <script>
+        // JavaScript to display the alert message and hide it after 5 seconds
+        window.onload = function() {
+            const message = "<%= message %>"; // Assuming 'message' variable is passed from the server
+
+            if (message) {
+                const alertBox = document.getElementById('alertBox');
+                alertBox.innerHTML = message;
+                alertBox.style.display = 'block';
+
+                // Set timeout to hide the alert after 5 seconds
+                setTimeout(() => {
+                    alertBox.style.display = 'none';
+                }, 5000); // 5000 milliseconds = 5 seconds
+            }
+        };
+    </script>;
+
+
+</body>
+</html>

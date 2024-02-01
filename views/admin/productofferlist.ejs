@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    
+
+  tfoot {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  tfoot td {
+    padding: 10px;
+    border-top: 2px solid #ddd;
+  }
+
+  tfoot td:first-child {
+    text-align: left;
+  }
+
+  tfoot td:last-child {
+    text-align: right;
+  }
+
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #16a07d;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+    .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}.edit-button {
+    background-color: rgb(30, 30, 103);
+    color: white;
+}
+#couponTable td form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  #couponTable td form button:hover {
+    background-color: #45a049;
+  }
+
+  #couponTable td form.delete button {
+    background-color: #f44336;
+  }
+
+  #couponTable td form.delete button:hover {
+    background-color: #d32f2f;
+  }
+
+  </style>
+</head>
+<body>
+    <div class="button-container" style="justify-content: flex-end;">
+        <a href="/admin/" class="button">Back to Home</a>
+    </div>
+    
+
+  <h2>Product Offer List </h2>
+  <table id="couponTable">
+    <thead>
+      <tr>
+        <th>offerName</th>
+        <th>Type</th>
+        <th>item</th>
+        <th>discount percentage</th>
+        <th>Max discount Amount</th>
+        <th>Status</th>
+        <th>starting Date</th>
+        <th>Ending Date</th>
+        <th>delete</th> <!-- New column for buttons -->
+        <th>Action</th> <!-- New column for buttons -->
+      </tr>
+    </thead>
+    <tbody>
+      <% data.reverse().forEach((datas) => { %>
+        <tr>
+          <td><%= datas.offerName %></td>
+          <td><%= datas.Type %></td>
+          <td><%= datas.item %></td>
+          <td><%= datas.discount_percentage %>%</td>
+          <td><%= datas.max_discount_amount %></td>
+          <td><%= datas.status %></td>
+          <td><%= formatDate(datas.start_date) %></td>
+          <td><%= formatDate(datas.expire_date) %></td>
+          <td>
+            <!-- Delete button -->
+            <!-- Modify the delete button to include a data attribute -->
+            <button type="submit" class="btn btn-danger" data-id="<%= datas.id %>">Delete</button>
+          </td>
+          <td>
+            <!-- Toggle Active button -->
+            <% if (datas.status === 'inActive') { %>
+              <button type="submit" class="btn btn-primary" onclick="activate('<%= datas.id %>')">Activate</button>
+            <% } else { %>
+              <button type="submit" class="btn btn-primary" onclick="deactivate('<%= datas.id %>')">Deactivate</button>
+            <% } %>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  
+  
+  <% function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  } %>
+  
+
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+ 
+  <!-- Bootstrap CSS from CDN -->
+
+
+  </script>
+  
+
+  <script>
+    // Add an event listener to handle the click on the delete button
+    document.getElementById('couponTable').addEventListener('click', function (event) {
+      
+      // Check if the clicked element is a delete button
+      if (event.target.classList.contains('btn-danger')) {
+        // Get the data id from the data attribute
+        const dataId = event.target.getAttribute('data-id');
+  
+        // Show a confirmation dialog using SweetAlert
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'You won\'t be able to revert this!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            // User clicked "Yes, delete it!"
+            // Send a fetch request to your specific route with data in the body
+            fetch(`/admin/deleteOffer`, {
+              method: 'POST', // Assuming you are using the DELETE method
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              // Include a body with the necessary data (e.g., id)
+              body: JSON.stringify({ id: dataId }),
+            })
+            .then(response => {
+              // Handle the response, e.g., remove the corresponding row from the table
+              if (response.ok) {
+                // Assuming you have a function to remove the row by data id
+                removeTableRow(dataId);
+                // Show success alert
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Success',
+                  text: 'Data deleted successfully!',
+                })
+                .then(() => {
+                  // Reload the page after success
+                  location.reload(); // or window.location.reload();
+                });
+              } else {
+                console.error('Failed to delete data.');
+                // Show error alert
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error',
+                  text: 'Failed to delete data. Please try again.',
+                });
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              // Show error alert for network or unexpected errors
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An unexpected error occurred. Please try again.',
+              });
+            });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // User clicked "No, cancel!"
+            Swal.fire({
+              icon: 'info',
+              title: 'Cancelled',
+              text: 'Delete operation cancelled.',
+            });
+          }
+        });
+      }
+    });
+  
+    // Function to remove the corresponding table row by data id
+    function removeTableRow(dataId) {
+      const rowToRemove = document.querySelector(`[data-id="${dataId}"]`);
+      if (rowToRemove) {
+        rowToRemove.parentNode.removeChild(rowToRemove);
+      }
+    }
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- Include SweetAlert library -->
+
+<script>
+  function activate(itemId) {
+    fetch(`/admin/activated/${itemId}`, {
+      method: 'POST', // or 'GET' depending on your server setup
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ itemId }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Handle the response data if needed
+      console.log(data);
+
+      // Display success alert
+      Swal.fire({
+        title: 'Activation Successful!',
+        icon: 'success',
+        text: 'Your activation was successful.',
+      }).then(() => {
+        // Reload the page
+        location.reload();
+      });
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('There was a problem with the fetch operation:', error);
+
+      // Display error alert
+      Swal.fire({
+        title: 'Activation Failed!',
+        icon: 'error',
+        text: 'There was an error during activation.',
+      });
+    });
+  }
+</script>
+
+
+
+<script>
+  function deactivate(itemId) {
+    fetch(`/admin/deactivated/${itemId}`, {
+      method: 'POST', // or 'GET' depending on your server setup
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ itemId }),
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      // Handle the response data if needed
+      console.log(data);
+
+      // Display success alert
+      Swal.fire({
+        title: 'dectivation Successful!',
+        icon: 'success',
+        text: 'Your deactivation was successful.',
+      }).then(() => {
+        // Reload the page
+        location.reload();
+      });
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('There was a problem with the fetch operation:', error);
+
+      // Display error alert
+      Swal.fire({
+        title: 'Activation Failed!',
+        icon: 'error',
+        text: 'There was an error during activation.',
+      });
+    });
+  }
+</script>
+
+  
+</body>
+
+</html>

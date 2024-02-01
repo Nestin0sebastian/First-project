@@ -1,0 +1,329 @@
+<%- include('../partials/header.ejs')%>
+<%- include('../partials/slidebar.ejs')%>
+
+
+
+            <div class="page-body">
+
+                <!-- New Product Add Start -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-sm-8 m-auto">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="card-header-2">
+                                                <h5>Product Information</h5>
+                                            </div>
+
+                                            <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload Form</title>
+    <!-- Add your stylesheets or other head elements here -->
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>Product Form</title>
+        <!-- Add your stylesheets or other head elements here -->
+    </head>
+    
+    <body>
+        <form class="theme-form theme-form-2 mega-form" id="editProduct" action="/admin/editposted?id=<%= y._id %>" method="post" enctype="multipart/form-data">
+            <!-- File Input Field (Moved to the top) -->
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Choose Image</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="file" id="productimage" name="productImage" multiple>
+                    <span class="text-danger" id="imageerror"></span>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <% y.productImage.forEach((item, i) => { %>
+                    <div class="image-wrapper">
+                        <img src="<%= item %>" width="200px" height="150px">
+                        <button class="remove-button" onclick="removeImage('<%= i %>', '<%= y._id %>')">X</button>
+                    </div>
+                <% }); %>
+            </div>
+            <!-- Product Name Fields -->
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Product Name</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" id="productname" placeholder="Product Name" name="name" value="<%= y.productName %>">
+                    <span class="text-danger" id="imageerror"></span>
+                </div>
+            </div>
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Category</label>
+                <div class="col-sm-9">
+                    <select name="category" style="width: 100%;" id="productcategory">
+                        <option value="">Select a Category  </option>
+                        <% category.forEach((item) => { %>
+                            <option value="<%= item._id %>"  <%= item._id.toString() === y.category.toString() ? 'selected' : '' %>>
+                                <%= item.name %>
+                            </option>
+                        <% }); %>
+                    </select>
+                    <span class="text-danger" id="categoryeerror"></span>
+                </div>
+            </div>
+
+
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Description</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" id="productdescription" placeholder="Description" name="description" value="<%= y.description %>">
+                    <span class="text-danger" id="descriptionerror"></span>
+                </div>
+            </div>
+        
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Current Quantity</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" placeholder="Current Quantity" id="productstock" name="quantity" value="<%= y.currentQut %>">
+                    <span class="text-danger" id="stockerror"></span>
+                </div>
+            </div>
+        
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Price</label>
+                
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" id="productprice" placeholder="Price" name="price" value="<%= y.price %>">
+                    <span class="text-danger" id="priceerror"></span>
+                </div>
+            </div>
+        
+            <!-- Size Dropdown Field -->
+            <div class="mb-4 row align-items-center">
+                <label class="form-label-title col-sm-3 mb-0">Size</label>
+                <div class="col-sm-9">
+                    <select class="form-control" name="size" id="productsize" value="<%= y.size%>">
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                        <option value="extra-large">Extra Large</option>
+                    </select>
+                    <span class="text-danger" id="sizeerror"></span>
+                </div>
+            </div>
+        
+            <!-- Submit Button -->
+            <div class="mb-4 row align-items-center">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+        <!-- Add your scripts or other body elements here -->
+         <!-- scripts or other body elements here  -->
+   
+    
+
+
+                <!-- footer Start -->
+                <div class="container-fluid">
+                    <footer class="footer">
+                        <div class="row">
+                            <div class="col-md-12 footer-copyright text-center">
+                                <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <!-- footer En -->
+            </div>
+            <!-- Container-fluid End -->
+        </div>
+        <!-- Page Body End -->
+    </div>
+    <!-- page-wrapper End -->
+
+    <!-- Modal Start -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                    <p>Are you sure you want to log out?</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    <div class="button-box">
+                        <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+    <script>
+function removeImage(imageIndex, productId) {
+    fetch('/admin/removeImage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId, imageIndex }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Image removed successfully
+            // You might want to update the UI accordingly
+            window.location.reload()
+            console.log('Image removed successfully');
+            // Perform UI update if necessary
+        } else {
+            // Handle error response from the server
+            console.error('Failed to remove image');
+        }
+    })
+    .catch(error => {
+        // Handle network errors
+        console.error('Network error:', error);
+    });
+}
+
+const editProduct = document.getElementById('editProduct');
+editProduct.addEventListener('submit', (e) => {
+    
+    e.preventDefault();
+    const productName = document.getElementById('productname').value;
+    const productImage = document.getElementById('productimage').files;
+    const productCategory = document.getElementById('productcategory').value;
+    const productDescription = document.getElementById('productdescription').value;
+    const productStock = document.getElementById('productstock').value;
+    const productPrice = document.getElementById('productprice').value;
+    const productSize = document.getElementById('productsize').value;
+
+    let hasError = true;
+
+    // Clear previous error messages
+    const errorSpans = document.querySelectorAll('.text-danger');
+    errorSpans.forEach(span => {
+        span.textContent = '';
+    });
+
+    // Product Name validation
+    if (productName.trim() === '') {
+        document.getElementById('nameerror').textContent = 'Product Name is required';
+        hasError = false;
+    }
+
+    // Image format validation
+    if (productImage.length > 0) {
+        const allowedFormats = ['image/jpeg', 'image/png', 'image/gif','image/webp'];
+        for (let i = 0; i < productImage.length; i++) {
+            if (!allowedFormats.includes(productImage[i].type)) {
+                document.getElementById('imageerror').textContent = 'Invalid image format. Allowed formats: JPG, PNG, GIF';
+                hasError = false;
+                break;
+            }
+        }
+    } else {
+        // document.getElementById('imageerror').textContent = 'Please select an image';
+        // hasError = false;
+    }
+
+    // Category validation
+    if (productCategory === '') {
+        document.getElementById('categoryerror').textContent = 'Please select a category';
+        hasError = false;
+    }
+
+    // Description validation
+    if (productDescription.trim() === '' || productDescription.length<10) {
+        document.getElementById('descriptionerror').textContent = 'Description is required and the decription must be more than 10 words';
+        hasError = false;
+    }
+
+    // Current Quantity validation
+    if (productStock.trim() === '' || productStock<1) {
+        document.getElementById('stockerror').textContent = 'Current Quantity is required and must be the number more tha zero ';
+        hasError = false;
+    }
+
+    // Price validation
+    if (productPrice.trim() === '' || productPrice<1) {
+        document.getElementById('priceerror').textContent = 'Price is required and must be the number more tha zero ';
+        hasError = false;
+    }
+
+    // Size validation
+    if (productSize === '') {
+        document.getElementById('sizeerror').textContent = 'Please select a size';
+        hasError = false;
+    }
+
+    if (hasError) {
+        editProduct.submit();
+         // Prevent form submission if there are errors
+    }
+});
+
+    </script>
+    <!-- Modal End -->
+
+    <!-- latest js -->
+    <script src="/assetsb/js/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="/assetsb/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <!-- feather icon js -->
+    <script src="/assetsb/js/icons/feather-icon/feather.min.js"></script>
+    <script src="/assetsb/js/icons/feather-icon/feather-icon.js"></script>
+
+    <!-- scrollbar simplebar js -->
+    <script src="/assetsb/js/scrollbar/simplebar.js"></script>
+    <script src="/assetsb/js/scrollbar/custom.js"></script>
+
+    <!-- Sidebar js -->
+    <script src="/assetsb/js/config.js"></script>
+
+    <!-- bootstrap tag-input js -->
+    <script src="/assetsb/js/bootstrap-tagsinput.min.js"></script>
+    <script src="/assetsb/js/sidebar-menu.js"></script>
+
+    <!-- customizer js -->
+    <script src="/assetsb/js/customizer.js"></script>
+
+    <!--Dropzon js -->
+    <script src="/assetsb/js/dropzone/dropzone.js"></script>
+    <script src="/assetsb/js/dropzone/dropzone-script.js"></script>
+
+    <!-- Plugins js -->
+    <script src="/assetsb/js/notify/bootstrap-notify.min.js"></script>
+    <script src="/assetsb/js/notify/index.js"></script>
+
+    <!-- ck editor js -->
+    <script src="/assetsb/js/ckeditor.js"></script>
+    <script src="/assetsb/js/ckeditor-custom.js"></script>
+
+    <!-- select2 js -->
+    <script src="/assetsb/js/select2.min.js"></script>
+    <script src="/assetsb/js/select2-custom.js"></script>
+
+    <!-- sidebar effect -->
+    <script src="/assetsb/js/sidebareffect.js"></script>
+
+    <!-- Theme js -->
+    <script src="/assetsb/js/script.js"></script>
+
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/add-new-product.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:46 GMT -->
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    
+
+  tfoot {
+    background-color: #f5f5f5;
+    font-weight: bold;
+  }
+
+  tfoot td {
+    padding: 10px;
+    border-top: 2px solid #ddd;
+  }
+
+  tfoot td:first-child {
+    text-align: left;
+  }
+
+  tfoot td:last-child {
+    text-align: right;
+  }
+
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #16a07d;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+    .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}.edit-button {
+    background-color: rgb(30, 30, 103);
+    color: white;
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="button-container" style="justify-content: flex-end;">
+        <a href="/admin/" class="button">Back to Home</a>
+    </div>
+    
+
+  <h2>Coupon List</h2>
+  <table id="couponTable">
+    <thead>
+      <tr>
+        <th>Coupon Code</th>
+        <th>Discount Percentage</th>
+        <th>Description</th>
+        <th>Max Discount Amount</th>
+        <th>Min Amount</th>
+        <th>Max Amount</th>
+        <th>Status</th>
+        <th>Expire Date</th>
+        <th>Is Listed</th>
+        
+  
+      </tr>
+    </thead>
+    <tbody>
+        <% 
+            coupons.reverse().forEach((coupon) => {
+        %>
+            <tr>
+                <td><%= coupon.couponcode %></td>
+                <td><%= coupon.discount_percentage %> %</td>
+                <td><%= coupon.description %></td>
+                <td><%= coupon.max_discount_amount %></td>
+                <td><%= coupon.min_amount %></td>
+                <td><%= coupon.max_amount %></td>
+                <td><%= coupon.status %></td>
+                <td><%= formatDate(coupon.expire_date) %></td>
+                
+                <td>
+                    <!-- Edit button -->
+                  
+                    
+                    <!-- List/Unlist button -->
+                    <a href="#" class="button toggle-button" data-coupon-id="<%= coupon._id %>">
+                        <%= coupon.islisted ? 'Unlist' : 'List' %>
+                    </a>
+                   <!-- Add a button for each coupon with a link to a specific route or action -->
+<!-- Add a button for each coupon with a link to a specific route or action -->
+<a href="/admin/editCoupon/<%= coupon._id %>" class="button edit-button">Edit</a>
+
+                </td>
+            </tr>
+        <% 
+            });
+        %>
+    </tbody>
+    
+  </table>
+  
+
+
+  <% function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  } %>
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+  <script>
+    // Custom search plugin for date formats like "23 Jan 2024" and product name
+    $.fn.dataTable.ext.type.search.custom = function (data) {
+      return data ? data.toLowerCase() : '';
+    };
+  
+    $(document).ready(function () {
+      // Initialize DataTable with custom search options
+      $('#dataTable').DataTable({
+        "paging": true,
+        "pageLength": 10,
+        "order": [[0, "desc"]],
+        "columnDefs": [
+          {
+            "targets": [0], // Date column index
+            "type": "dateFormatted" // Use custom date type for searching
+          },
+          {
+            "targets": [2], // Product Name column index
+            "type": "custom" // Use custom search type for product name
+          }
+        ]
+      });
+    });
+  </script>
+  
+
+  </script>
+  
+
+
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach a click event listener to all elements with the class 'toggle-button'
+    document.querySelectorAll('.toggle-button').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Get the coupon ID from the 'data-coupon-id' attribute
+            const couponId = button.getAttribute('data-coupon-id');
+            // Get the action (list or unlist) from the 'data-action' attribute
+            const action = button.getAttribute('data-action');
+
+            // Perform the fetch request
+            fetch(`/admin/toggleListCoupon`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: couponId, action }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // Optionally handle the response if needed
+                return response.json();
+            })
+            .then(data => {
+                // Optionally handle the data if needed
+                console.log(data);
+
+                // Use SweetAlert to show a success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Coupon status toggled successfully',
+                }).then(() => {
+                    // Redirect to the admin page
+                    window.location.href = '/admin/couponslist';
+                });
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+
+                // Use SweetAlert to show an error message
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Failed to toggle coupon status',
+                });
+            });
+        });
+    });
+});
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+  
+</body>
+
+</html>

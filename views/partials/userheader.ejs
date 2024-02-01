@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/index-6.html  22 Nov 2019 09:56:18 GMT -->
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SoleHaven.com</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/icons/favicon-16x16.png">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-6.css">
+    <link rel="stylesheet" href="assets/css/demos/demo-6.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-4o5fzEQ3jpxBCFmjN2JOMiNbLQw4H2xtWBLgBcpOnM5IzwPWWNc29JbHTt0bP8l/XDx3Ikk1w8gRwS5jmfrgPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>/* Custom styles for the table */
+    
+        /* Add this style to round the corners of the cards and position the edit symbol */
+    
+    /* Update the button styles */
+     /* Add your custom CSS styles for product cards here */
+     /* ... Existing CSS ... */
+     /* Add your preferred styles for the wallet icon and modal here */
+
+
+     .banner-content {
+        text-align: center;
+        padding: 40px;
+        background-color: #333; /* Change this to your preferred background color */
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .banner-subtitle {
+        color: #ffd700; /* Gold color for the subtitle */
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .banner-title {
+        color: #fff; /* White color for the title */
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .banner-description {
+        color: #ccc; /* Light gray color for the description */
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .banner-link {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 18px;
+        text-decoration: none;
+        color: #ef9002; /* White color for the link text */
+        border: 2px solid #fff; /* White color for the border */
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .banner-link:hover {
+        background-color: #fff; /* White color on hover */
+        color: #333333; /* Change to your preferred color on hover */
+    }
+.product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #e44d0d; /* Orange border color during hover */
+}
+
+/* ... Existing CSS ... */
+
+     /* Product Card Styling */
+.product {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-label.label-new {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+.product-body {
+    padding: 20px;
+}
+
+.product-cat a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.product-cat a:hover {
+    color: #0056b3;
+}
+
+.product-title a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.product-title a:hover {
+    color: #000;
+}
+
+.product-price {
+    color: #e44d0d;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ratings-container {
+    margin-top: 10px;
+}
+
+.ratings-val {
+    background-color: #ffc107;
+    height: 8px;
+    border-radius: 5px;
+}
+
+.product-nav-thumbs a {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.product-nav-thumbs a.active {
+    border-color: #007bff;
+    transform: scale(1.05);
+}
+
+/* Add to Cart Button Styling */
+.product-action .btn-product {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: #e44d0d;
+    color: #fff;
+    border: none;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.product-action .btn-product:hover {
+    background-color: #ff5e15;
+}
+
+     /* Product Card Styling */
+.product {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.product:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-label.label-new {
+    background-color: #4caf50; /* Green color for new label */
+    color: #fff;
+}
+
+.product-body {
+    padding: 20px;
+}
+
+.product-cat a {
+    color: #007bff; /* Blue color for category link */
+}
+
+.product-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.product-price {
+    color: #e44d0d; /* Orange color for price */
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.ratings-container {
+    margin-top: 10px;
+}
+
+.ratings-val {
+    background-color: #ffc107; /* Yellow color for ratings bar */
+}
+
+.product-nav-thumbs a {
+    border: 2px solid #e0e0e0; /* Light gray border for thumbnail navigation */
+}
+
+.product-nav-thumbs a.active {
+    border-color: #007bff; /* Blue border for active thumbnail */
+}
+
+/* Add to Cart Button Styling */
+.product-action .btn-product {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background-color: #e44d0d; /* Orange color for Add to Cart button */
+    color: #fff;
+    border: none;
+    border-radius: 0 0 8px 8px; /* Adjust border-radius for the bottom corners */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.product-action .btn-product:hover {
+    background-color: #ff5e15; /* Darker orange color on hover */
+}
+
+
+     .products {
+        margin-bottom: 30px;
+    }
+
+    .product {
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .product:hover {
+        transform: scale(1.05);
+    }
+
+    .product .product-media {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .product-image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .product-label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #ff5e15;
+        color: #fff;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+
+    .product-body {
+        padding: 20px;
+    }
+
+    .product-cat a {
+        color: #555;
+        text-decoration: none;
+        transition: color 0.3s ease-in-out;
+    }
+
+    .product-cat a:hover {
+        color: #ff5e15;
+    }
+
+    .product-title {
+        font-size: 18px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .product-price {
+        font-size: 16px;
+        font-weight: bold;
+        color: #ff5e15;
+        margin-bottom: 10px;
+    }
+
+    .ratings-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .ratings {
+        margin-right: 5px;
+    }
+
+    .ratings-val {
+        background-color: #ffcc00;
+        height: 10px;
+        width: 20%;
+        border-radius: 4px;
+    }
+
+    .ratings-text {
+        color: #888;
+        font-size: 12px;
+        margin-left: 5px;
+    }
+
+    .product-nav-thumbs {
+        margin-top: 10px;
+    }
+
+    .product-nav-thumbs a {
+        display: inline-block;
+        margin-right: 5px;
+        border: 2px solid #eee;
+        border-radius: 4px;
+        overflow: hidden;
+        width: 40px;
+        height: 40px;
+    }
+
+    .product-nav-thumbs img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .btn-product {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #ff5e15;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .btn-product:hover {
+        background-color: #e44d0d;
+    }
+    .search-container {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+#productSearch {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    flex-grow: 1;
+}
+
+#searchButton {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+    /* Apply styles to form fields */.cancel-btn {
+  background-color: #ff5252;
+  color: white;
+  border: 2px solid #ff5252;
+  padding: 10px 20px; /* Adjusted padding values */
+  border-radius: 25px; /* Slightly reduced border radius */
+  font-size: 14px; /* Adjusted font size */
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cancel-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+
+.cancel-btn:hover::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.cancel-btn:hover {
+  color: #ff5252;
+  background-color: #fff;
+}
+
+    .form-container {
+  position: relative;
+}
+
+.dustbin-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+    .form-container {
+  position: relative;
+}
+
+.dustbin-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #ffbe0c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #e1d04e;
+}
+
+/* Error messages */
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+/* Additional styling for cards */
+.card-dashboard {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    
+    .card {
+        height: 50px; /* Adjust the height as needed */
+        border-radius: 10px;
+        overflow: hidden;
+        
+        border: 1px solid #e0e
+    }
+
+    /* Other styles remain the same */
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Styles for the edit symbol button */
+    .edit-symbol {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #FFA500;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+    .edit-symbol:hover {
+        background-color: #FF8000; /* Darker shade on hover */
+    }
+    .edit-symbol i {
+        margin-right: 5px;
+    }
+
+        .card-dashboard {
+            border-radius: 10px; /* Adjust the value as needed */
+            overflow: hidden; /* Ensure content stays within rounded corners */
+            position: relative;
+        }
+        .edit-symbol {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: #777;
+        }
+    
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        
+        /* Styles for the table header */
+        .table thead th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        /* Alternate row colors for better readability */
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        /* Styles for table cells */
+        .table td, .table th {
+            padding: 8px;
+            border-bottom: 1px solid #dee2e6;
+            text-align: center;
+        }
+        
+        /* Button style */
+        .btn-info {
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header-search {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.header-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-control {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-search {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.overlay {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .container {
+        padding: -71px 0; /* Adjust the top and bottom padding */
+    }
+
+    .header-center {
+        margin-bottom: 1px; /* Adjust the bottom margin */
+    }
+        /* Styles for the popup container */
+        .popup-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+/* Add this style in the head section or in your stylesheet */
+.page-button.prev {
+    background-color: #3498db;
+    color: #fff;
+    border: 2px solid #3498db;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  /* Add this style to your existing styles or in a separate CSS file */
+  .apply-button {
+        background-color: #b17f12; /* Green background color */
+        border: none; /* Remove border */
+        color: white; /* White text color */
+        padding: 3px 8px; /* Add padding */
+        text-align: center; /* Center text */
+        text-decoration: none; /* Remove underline */
+        display: inline-block; /* Make it an inline block element */
+        font-size: 16px; /* Set font size */
+        margin: 4px 2px; /* Add margin */
+        cursor: pointer; /* Add a pointer cursor on hover */
+        border-radius: 4px; /* Optional: Add rounded corners */
+    }
+
+    /* Add hover effect */
+    .apply-button:hover {
+        background-color: #45a049;
+    }
+.page-button.prev:hover {
+    background-color: #fff;
+    color: #000000;
+}
+
+.pagination-btn {
+    background-color: #c78a07;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background-color: #297fb8;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1;
+    text-align: center; /* Center content horizontally */
+}
+
+.modal-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+}
+
+.close {
+    position: absolute; /* Set the position to absolute */
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #888;
+}
+
+
+.close:hover {
+    color: #555;
+}
+
+.close {
+    position: absolute;
+    top: 0px;
+    right: 1px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    background-color: #d9ac06;
+    border: none;
+    border-radius: 50%;
+    padding: 3px 8px;
+    transition: background-color 0.3s ease;
+}
+
+.close:hover {
+    background-color: #f06501;
+}
+
+#openModalBtn {
+    display: inline-block;
+    padding: 4px 6px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background: linear-gradient(45deg, #b41cbc, #ffae00);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+#openModalBtn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+* Style for the modal content */
+    .modal-content {
+        background-color: #ffe293;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the input field */
+    input#referralCode {
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+
+    /* Style for the copy button */
+    button.copy-btn {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button.copy-btn:hover {
+        background-color: #45a049;
+    }
+
+    .modal-content {
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #0e0d0d;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    /* Style for the input field */
+    input#referralCode {
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #bdbdbd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Style for the copy button */
+    button.copy-btn {
+        background-color: #000000;
+        color: white;
+        padding: 2px 4px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 16px;
+    }
+
+    button.copy-btn:hover {
+        background-color: #3d4347;
+    }
+
+    /* Style for the close button */
+    .close {
+        color: #000000;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .close:hover {
+        color: #333;
+    }
+
+
+
+/* Style for the modal */
+#walletModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Style for the modal content */
+#walletModal .modal-content {
+    text-align: center;
+}
+
+/* Style for the close button */
+#walletModal .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Style for the balance */
+#walletModal h4 {
+    color: #28a745; /* Green color for balance */
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+/* Additional styles can be added for a more appealing appearance */
+/* Style for the modal */
+#walletModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Style for the modal content */
+#walletModal .modal-content {
+    text-align: center;
+}
+
+/* Style for the close button */
+#walletModal .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#walletModal .close:hover {
+    color: #ff5851; /* Change color on hover */
+}
+
+/* Style for the balance */
+#walletModal h4 {
+    color: #28a745; /* Green color for balance */
+    font-size: 32px;
+    margin-top: 20px;
+}
+
+/* Additional styles for an attractive appearance */
+#walletModal p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Add more styles as needed for buttons or other elements */
+/* Style for the modal */
+#walletModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+/* Style for the modal content */
+#walletModal .modal-content {
+    text-align: center;
+}
+
+/* Style for the close button */
+#walletModal .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+#walletModal .close:hover {
+    color: #ff5851; /* Change color on hover */
+}
+
+/* Style for the balance */
+#walletModal h4 {
+    color: #28a745; /* Green color for balance */
+    font-size: 36px;
+    margin-top: 30px;
+}
+
+/* Additional styles for an attractive appearance */
+#walletModal p {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* Style for the modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+/* Additional styles for an overlay effect */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Add more styles as needed for buttons or other elements */
+
+
+/* Add this CSS to your stylesheet */
+
+.product-label {
+    position: absolute;
+    top: 10px; /* Adjust the top position for better placement */
+    left: 10px; /* Adjust the left position for better placement */
+    background-color: #ff2600; /* Tomato color, you can change this to your preferred color */
+    color: #fff;
+    padding: 8px 15px; /* Increase padding for more space */
+    font-size: 16px; /* Increase font size for better visibility */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+
+    /* Additional styles for better readability and aesthetics */
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect to make it more interactive */
+.product-label:hover {
+    background-color: #dd0400; /* Darken the background color on hover */
+}
+
+.original-price {
+        color: #999; /* Use the color code or name you prefer */
+    }
+    .original-price {
+    margin-left: 10px; /* Adjust the value as needed */
+}
+
+.delivered-button {
+        background-color: #eea406; /* Green background */
+        color: white;
+        border: none;
+        padding: 6px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px; /* Rounded corners */
+        transition: background-color 0.3s ease; /* Add smooth transition */
+    }
+
+    .delivered-button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+
+        </style>
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="header header-6">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-left">
+                        <ul class="top-menu top-link-menu d-none d-md-block">
+                            <li>
+                                <a href="#">Links</a>
+                                <ul>
+                                    <li><a href="tel:#"><i class="icon-phoe">            <img src="https://document-export.canva.com/zjdXM/DAF6nGzjdXM/8/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20240124%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240124T193015Z&X-Amz-Expires=55144&X-Amz-Signature=1494b456921d4fe88e52045c43c106ce7dd101e8d35c1f27a10c1791bf2ed1a6&X-Amz-SignedHeaders=host&response-expires=Thu%2C%2025%20Jan%202024%2010%3A49%3A19%20GMT" height="10px" width="110px"></i>SoleHaven</a></li>
+                                </ul>
+                            </li>
+                        </ul><!-- End .top-menu -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+                        <div class="social-icons social-icons-color">
+                            
+                            
+                            <div id="wallescstModal" class="modsacsascal">
+                                <div class="modal-cosntent">
+                                    <!-- <span class="clcose" onclick="closeWdalletModal()">&times;</span> -->
+                                    <!-- <p>Select your payment method:</p> -->
+                                    <!-- Add more content or actions related to payment options here -->
+                                </div>
+                            </div>                             <a href="/profileget" class="icon-user" target="_blank" style="display: flex; align-items: center;">
+                                <i></i> <!-- Your icon here -->
+                                <p title="My Account" style="margin-left: 5px;">My Account</p>
+                            </a>
+                            
+                            
+                             
+                        </div><!-- End .soial-icons -->
+                        <ul class="top-menu top-link-menu">
+                            <li>
+                                <a href="#">Links</a>
+                                <ul>
+                                    <li><i class=></i><a href="/">Home</a></li>
+                                </ul>
+                                
+                            </li>
+                            
+                            
+                        </ul><!-- End .top-menu -->
+
+                        <div class="header-dropdown">
+                            <a href="/login">Login</a>
+                            
+                               
+                        <!-- End .header-menu -->
+                        </div><hr><!-- End .header-dropdown -->
+
+                        <div class="header-dropdown">
+                            <a href="/shop">Shop</a>
+                            <!-- End .header-menu -->
+                        </div><!-- End .header-dropdown -->
+                      
+
+                        <div class="header-right">
+                            <a href="/wishdisplay" class="wishlist-link">
+                                <i class="icon-heart-o"></i>
+                                <span class="wishlist-count">3</span>
+                                <span class="wishlist-txt">My Wishlist</span>
+                            </a>
+    
+                            <div class="dropdown cart-dropdown">
+                                <a href="" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                                    <i class="icon-shopping-cart"></i>
+                                    <span class="cart-count">2</span>
+                                    <!-- <span class="cart-txt">$ 164,00</span> -->
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-cart-products">
+                                      <!-- End .product -->
+    
+                                        <div class="product">
+                                            <div class="product-cart-details">
+                                                <h4 class="product-title">
+                                                    <a href="product.html">New arrival</a>
+                                                    <p> AIR jordan 4 'Thunder'</p>
+                                                </h4>
+    
+                                                <span class="cart-product-info">
+                                                    <span class="cart-product-qty"></span>
+                                                    <!-- x $76.00 -->
+                                                </span>
+                                            </div><!-- End .product-cart-details -->
+    
+                                            <figure class="product-image-container">
+                                                <a href="product.html" class="product-image">
+                                                    <img src="https://cdn.findyourkicks.com/uploads/all/1fifMEOJubOrBN8eSNSppX8QoRjzL56cC2T4e2yP.jpg" alt="product">
+                                                </a>
+                                                
+                                            </figure>
+                                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                        </div><!-- End .product -->
+                                    </div><!-- End .cart-product -->
+    
+                                    <div class="dropdown-cart-total">
+                                        <!-- <span>Total</span> -->
+    
+                                        <!-- <span class="cart-total-price">$160.00</span> -->
+                                    </div><!-- End .dropdown-cart-total -->
+    
+                                    <div class="dropdown-cart-action">
+                                        <a href="/cartdisplay" class="btn btn-primary">View Cart</a>
+                                        <a href="/checkout" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                    </div><!-- End .dropdown-cart-total -->
+                                </div><!-- End .dropdown-menu -->
+                            </div><!-- End .cart-dropdown -->
+                        </div>
+                    </div><!-- End .header-right -->
+                </div>
+            </div>
+            
+
+          
+            

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+  <style>
+     tfoot td {
+    font-weight: bold; /* Bold text */
+  }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      background-color: #fff;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #1c947e;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #45a049;
+    }
+    
+  </style>
+</head>
+<body>
+    
+
+<div class="button-container">
+    <button class="btn" style="background-color: blue; color: white;" onclick="window.print()">Print</button>
+  <a href="/admin/" class="button">Back to Home</a>
+</div>
+
+<h2>Yearly Sales Report</h2>
+<table id="yearlyTable">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Order ID</th>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% 
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 1); // January 1st of the current year
+    const endOfYear = new Date(today.getFullYear() + 1, 0, 0); // December 31st of the current year
+    
+    let yearlyTotal = 0; // Initialize yearly total
+  
+    data.reverse().forEach((report) => {
+      report.products.forEach((product) => {
+        const reportDate = new Date(report.date);
+        if (report.orderStatus !== 'cancelled') { // Check if orderStatus is not 'cancelled'
+          if (reportDate >= startOfYear && reportDate <= endOfYear) {
+            yearlyTotal += product.total; // Accumulate the total for the year
+    %>
+            <tr>
+              <td><%= formatDate(report.date) %></td>
+              <td><%= report.orderId %></td>
+              <td><%= product.productId && product.productId.productName ? product.productId.productName : 'N/A' %></td>
+              <td>₹<%= product.productId && product.productId.price ? product.productId.price : 'N/A' %></td>
+              <td><%= product.quantity %></td>
+              <td>₹<%= product.total %></td>
+            </tr>
+            <!-- Add more rows as needed -->
+    <% 
+          }
+        }
+      });
+    });
+    %>
+  </tbody>
+  
+  <!-- Table footer for yearly total -->
+  <tfoot>
+    <tr>
+      <td colspan="5" style="text-align: left;">Total for the Year:</td>
+      <td style="text-align: right;">₹<%= yearlyTotal.toFixed(2) %></td>
+    </tr>
+  </tfoot>
+
+  <% function formatDate(date) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(date).toLocaleDateString(undefined, options);
+  } %>
+</table>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script>
+  // Custom search plugin for date formats like "23 Jan 2024" and product name
+  $.fn.dataTable.ext.type.search.custom = function (data) {
+    return data ? data.toLowerCase() : '';
+  };
+
+  $(document).ready(function () {
+    // Initialize DataTable with custom search options
+    $('#yearlyTable').DataTable({
+      "paging": true,
+      "pageLength": 10,
+      "order": [[0, "desc"]],
+      "columnDefs": [
+        {
+          "targets": [0], // Date column index
+          "type": "dateFormatted" // Use custom date type for searching
+        },
+        {
+          "targets": [2], // Product Name column index
+          "type": "custom" // Use custom search type for product name
+        }
+      ]
+    });
+  });
+</script>
+  
+
+
+
+          
+</body>
+</html>

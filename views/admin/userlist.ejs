@@ -1,0 +1,177 @@
+<%- include('../partials/header.ejs')%>
+<%- include('../partials/slidebar.ejs')%>
+
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card card-table">
+                    <div class="card-body">
+                        <h5>All Users</h5>
+                        <!-- Other title/header elements -->
+
+                        <div class="table-responsive table-product">
+                            <table class="table all-package theme-table" id="table_id">
+                                <thead>
+                                    <!-- Table headers -->
+                                    <tr>
+                                        <th>Firstname</th>
+                                        <th>Lastname</th>
+                                        <th>Email</th>
+                                        <th></th>
+                                        <th></th>
+                                        
+                                        <!-- ... other headers ... -->
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <%users.forEach((y)=>{%>
+                                        <tr>
+                                          <td><%=y.firstname%></td>
+                                          <td><%=y.lastname%></td>
+                                          <td><%=y.email%></td>
+                                          <td><%=y.contact%></td>
+                                          <td class="d-flex justify-content-sm-between">
+                                            <% if(y.isblocked) { %>
+                                                <button class="btn btn-info btn-sm " onclick="blockUser('<%= y._id %>')">Unblock</button>
+                                           
+                                            <% } else{ %>
+                                                <button class="btn btn-info btn-sm " onclick="blockUser('<%= y._id %>')">block</button>
+                                          <% } %>
+                                        </td>
+                                        </tr>
+                                        <% } ) %>
+                             
+                                </tbody>
+                            </table>
+
+                            <!-- Pagination controls -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center mt-4">
+                                    <% if (hasPreviousPage) { %>
+                                        <!-- Render previous page link -->
+                                        <li class="page-item">
+                                            <a class="page-link" href="<%= previousPage %>" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    <% } %>
+
+                                    <% for (let i = 1; i <= lastPage; i++) { %>
+                                        <!-- Render individual page links -->
+                                        <li class="page-item">
+                                            <a class="page-link" href="/admin/userlist?page=<%= i %>"><%= i %></a>
+                                        </li>
+                                    <% } %>
+
+                                    <% if (hasNextPage) { %>
+                                        <!-- Render next page link -->
+                                        <li class="page-item">
+                                            <a class="page-link" href="<%= nextPage %>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    <% } %>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer section -->
+    <footer class="footer">
+        <div class="row">
+            <div class="col-md-12 footer-copyright text-center">
+                <p class="mb-0">Copyright 2022 © Fastkart theme by pixelstrap</p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<!-- Include necessary scripts -->
+<script src="/assetsb/js/jquery-3.6.0.min.js"></script>
+<!-- ... other scripts ... -->
+<!-- latest js -->
+<script src="/assetsb/js/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap js -->
+<script src="/assetsb/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+<!-- feather icon js -->
+<script src="/assetsb/js/icons/feather-icon/feather.min.js"></script>
+<script src="/assetsb/js/icons/feather-icon/feather-icon.js"></script>
+
+<!-- scrollbar simplebar js -->
+<script src="/assetsb/js/scrollbar/simplebar.js"></script>
+<script src="/assetsb/js/scrollbar/custom.js"></script>
+
+<!-- customizer js -->
+<script src="/assetsb/js/customizer.js"></script>
+
+<!-- Sidebar js -->
+<script src="/assetsb/js/config.js"></script>
+
+<!-- Plugins JS -->
+<script src="/assetsb/js/sidebar-menu.js"></script>
+<script src="/assetsb/js/notify/bootstrap-notify.min.js"></script>
+<script src="/assetsb/js/notify/index.js"></script>
+
+<!-- Data table js -->
+<script src="/assetsb/js/jquery.dataTables.js"></script>
+<script src="/assetsb/js/custom-data-table.js"></script>
+
+<!-- all checkbox select js -->
+<script src="/assetsb/js/checkbox-all-check.js"></script>
+
+<!-- sidebar effect -->
+<script src="/assetsb/js/sidebareffect.js"></script>
+
+<!-- Theme js -->
+<script src="/assetsb/js/script.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/back-end/all-users.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Sep 2023 05:49:39 GMT -->
+</html>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+async function blockUser(userId) {
+    // Create a Swal confirmation popup
+    const confirmation = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action will block the user!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, block it!'
+    });
+
+    // Check if the user confirmed
+    if (confirmation.isConfirmed) {
+        try {
+            const response = await fetch(`/admin/blockUser/${userId}`, {
+                method: 'post',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            console.log(result);
+
+            window.location.reload();
+        } catch (error) {
+            console.error('Fetch error:', error);
+        }
+    }
+}
+
+</script>

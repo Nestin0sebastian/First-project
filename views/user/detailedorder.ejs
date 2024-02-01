@@ -1,0 +1,170 @@
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>.gradient-custom {
+        /* fallback for old browsers */
+        background: #da9d10;
+        
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to top left, rgb(255, 153, 0), rgba(246, 243, 255, 1));
+        
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to top left, rgb(235, 147, 6), rgba(246, 243, 255, 1))
+        }
+
+        .btn-violet {
+    background-color: rgb(92, 165, 28);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    /* Add any other necessary styles */
+}
+
+.btn-violet:hover {
+    background-color: rgb(233, 231, 234);
+    /* Add any other hover effects if needed */
+}
+
+        
+        </style>
+</head>
+<body>
+    <section class="h-100 gradient-custom">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-10 col-xl-8">
+              <div class="card" style="border-radius: 10px;">
+                <div class="card-header px-4 py-5">
+                  <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #e58209;"><%= order.address.name %></span>!</h5>
+                </div>
+                <div class="card-body p-4">
+                  <button class="invoice-btn" onclick="downloadInvoice('<%= order._id %>')" style="text-decoration: none; padding: 10px 20px; border-radius: 50px; background: linear-gradient(45deg, #FFD700, #FFA500); color: #ffffff; font-size: 16px; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s, box-shadow 0.3s; margin: 0 5px; float: right;">Download Invoice</button>
+
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="lead fw-normal mb-0" style="color: #4ef500;">Receipt</p>
+                    <!-- <p class="small text-muted mb-0">Receipt Voucher : 1KAU9-84UIL</p> -->
+                  </div>
+                  
+                  <div class="card shadow-0 border mb-4">
+                    <div class="card-body">
+                      <div class="row mt-4">
+                        <% order.products.forEach(product => { %>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <img src="<%= product.productId.productImage[0] %>" alt="Product Image" class="img-fluid rounded" style="width: 150px;">
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                              <p class="text-muted mb-0"><h1>₹<%= Math.round(order.totalAmount) %></h1></p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <p class="text-muted mb-0 small"><strong><%= product.productId.productName %></strong></p>
+                            </div>
+                            <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                                <h1 class="text-muted mb-0 small">Quantity: <%= product.quantity %></h1>
+                            </div>
+                      
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                            <!-- Additional content, if any -->
+                        </div>
+                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                            <!-- Additional content, if any -->
+                        </div>
+                    </div>
+                    <% }); %>
+                      <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+                      <h1 class=" mb-0 small">Order Status: <%= order.orderStatus %></h1>
+                    </div>
+                  </div>
+                
+                  <div class="d-flex justify-content-between pt-2">
+                    <p class="fw-bold mb-0">Delivery Address</p>
+                    <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> $898.00</p> -->
+                  </div>
+      
+                  <div class="d-flex justify-content-between pt-2">
+                    <p class="text-muted mb-0">Name:<%= order.address.name %></p>
+                    <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p> -->
+                  </div>
+      
+                  <div class="d-flex justify-content-between">
+                    <p class="text-muted mb-0">Mobile : <%= order.address.mobile %></p>
+                    <!-- <p class="text-muted mb-0"><span class="fw-bold me-4">GST 18%</span> 123</p> -->
+                  </div>
+      
+                  <div class="d-flex justify-content-between mb-5">
+                    <p class="text-muted mb-0">Locality: <%= order.address.locality %>,<%= order.address.pincode %>,<%= order.address.state %></p>
+                    
+                    <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
+                  </div>
+                  <h1 class="mb-0 small text-end">Payment Method: <%= order.paymentMethod %></h1>
+                  
+                </div>
+                <div class="card">
+  <div class="card-content">
+    <!-- Content of the card -->
+ 
+
+    <div class="card-footer border-0 px-4 py-5" style="background-color: #ff7b00; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+      <a href="/profileget" class="btn btn-violet me-auto">Go to Orders</a>
+
+      <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total paid: 
+          <span class="h2 mb-0 ms-2">₹<%= order.totalAmount%></span>
+      </h5>
+  </div>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <script>
+          function downloadInvoice(orderId) {
+ 
+    try {
+        // Fetch the invoice using GET request with the provided order ID
+        fetch(`/invoice/${orderId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/pdf' // Assuming the response is a PDF file
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to download invoice');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'invoice.pdf'; // Specify the default file name for download
+            link.style.display = 'none';
+            document.body.appendChild(link);
+
+            link.click();
+
+            // Clean up
+            setTimeout(() => {
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(link);
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error (e.g., display a message to the user)
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        // Handle error (e.g., display a message to the user)
+    }
+}
+        </script>
+      </section>
+</body>
+</html>
