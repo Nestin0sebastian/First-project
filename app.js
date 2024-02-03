@@ -12,10 +12,7 @@ const { error } = require("console");
 require("dotenv").config();
 var app = express();
 
-mongoose.connect("mongodb://127.0.0.1:27017/Ecommerce", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.DB_MONGO);
 
 const db = mongoose.connection;
 
