@@ -370,44 +370,61 @@ const cancelorder = async (req, res) => {
     try {
         const orderproduct = await ordermodel.findById(orderId);
 
-        // Update orderStatus and reason
-        orderproduct.orderStatus = 'requested';
-        orderproduct.reason = reason;
-        await orderproduct.save();
-
         // Check if the order is already cancelled
         if (orderproduct.orderStatus === 'cancelled') {
-            const matchedProduct = orderproduct.products.find(prdct => prdct.productId.toString() === productId);
-
-            if (!matchedProduct) {
-                return res.status(404).json({ message: 'Product not found in order!' });
-            }
-
-            const increasequantity = await product.findById(productId);
-
-            if (!increasequantity) {
-                return res.status(404).json({ message: 'Product not found!' });
-            }
-
-            // Increase the product quantity
-            increasequantity.currentQut += matchedProduct.quantity;
-            await increasequantity.save();
-
-            // Update the orderStatus to 'cancelled'
-            orderproduct.orderStatus = 'cancelled';
-            await orderproduct.save();
-
-            console.log("Order cancelled");
-            return res.status(200).json({ message: 'Order cancelled!' });
+            console.log("Order is already cancelled");
+            return res.status(200).json({ message: 'Order is already cancelled' });
         }
 
-        console.log("Order status updated to 'requested'");
-        return res.status(200).json({ message: 'Order status updated to requested!' });
+        // Update orderStatus and reason
+        orderproduct.orderStatus = 'requested';
+        
+        orderproduct.reason = reason;
+        await orderproduct.save();
+        consoel.log(orderproduct,'{{{')
+
+        const matchedProduct = orderproduct.products.find(prdct => prdct.productId.toString() === productId);
+
+        if (!matchedProduct) {
+            return res.status(404).json({ message: 'Product not found in order!' });
+        }
+
+        const increasequantity = await product.findById(productId);
+
+        if (!increasequantity) {
+            return res.status(404).json({ message: 'Product not found!' });
+        }
+
+        // Increase the product quantity
+        increasequantity.currentQut += matchedProduct.quantity;
+        await increasequantity.save();
+
+        // Update the orderStatus to 'cancelled'
+        orderproduct.orderStatus = 'cancelled';
+        await orderproduct.save();
+
+        // Refund amount to the wallet if payment method is not cash on delivery
+        if (orderproduct.paymentMethod !== 'cod') {
+            const user = await userModel.findById(req.session.dataofuser._id);
+            if (user) {
+                // Check if the user has a wallet, if not, create one
+                if (!user.wallet) {
+                    user.wallet = 0; // Initialize wallet balance to 0
+                }
+                user.wallet += orderproduct.totalAmount;
+                await user.save();
+            }
+        }
+
+        console.log("Order cancelled");
+        return res.status(200).json({ message: 'Order cancelled!' });
     } catch (error) {
         console.error('Error:', error);
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
+
 
 const invoice = async (req, res) => {
     const data = req.params.orderId;
@@ -704,7 +721,10 @@ const returnorder = async (req, res) => {
         // Additional logic: Update user's wallet
         const user = await userModel.findById(req.session.dataofuser._id);
         if (user) {
-            // Assuming 'wallet' is a property in the userModel
+            // Check if the user has a wallet, if not, create one
+            if (!user.wallet) {
+                user.wallet = 0; // Initialize wallet balance to 0
+            }
             user.wallet += orderproduct.totalAmount;
             await user.save();
         }
@@ -716,6 +736,7 @@ const returnorder = async (req, res) => {
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
 
 
 

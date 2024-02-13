@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weekly Sales Graph</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #40b18f;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="btn" style="background-color: blue; color: white;" onclick="window.print()">Print</button>
+        <a href="/admin/" class="button" style="color: rgb(251, 251, 251); text-decoration: none; float: right;">Back to Home</a>
+    </div>
+        <h2 class="text-center">Weekly Sales Graph with Payment Method Statistics</h2>
+        <canvas id="weeklySalesChart"></canvas>
+        
+
+    <script>
+        // Server-side variables
+        const paymentMethodLabels = <%- JSON.stringify(paymentMethodLabels) %>;
+        const paymentMethodData = <%- JSON.stringify(paymentMethodData) %>;
+
+        // Function to render the sales chart
+        function renderSalesChart() {
+            const ctx = document.getElementById('weeklySalesChart').getContext('2d');
+            const salesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: paymentMethodLabels,
+                    datasets: [{
+                        label: 'Total Sales Amount',
+                        data: paymentMethodData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    // Adjust the bar thickness here
+                    barThickness: 40 // Decrease the bar size
+                }
+            });
+        }
+
+        // Call the function to render the sales chart
+        renderSalesChart();
+    </script>
+</body>
+</html>

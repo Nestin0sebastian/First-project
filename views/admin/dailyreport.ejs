@@ -2,30 +2,26 @@
 <html>
 <head>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
   <style>
-    
+    tfoot {
+      background-color: #f5f5f5;
+      font-weight: bold;
+    }
 
-  tfoot {
-    background-color: #f5f5f5;
-    font-weight: bold;
-  }
+    tfoot td {
+      padding: 10px;
+      border-top: 2px solid #ddd;
+    }
 
-  tfoot td {
-    padding: 10px;
-    border-top: 2px solid #ddd;
-  }
+    tfoot td:first-child {
+      text-align: left;
+    }
 
-  tfoot td:first-child {
-    text-align: left;
-  }
-
-  tfoot td:last-child {
-    text-align: right;
-  }
-
+    tfoot td:last-child {
+      text-align: right;
+    }
 
     body {
       font-family: Arial, sans-serif;
@@ -53,7 +49,7 @@
     }
 
     th {
-      background-color: #4CAF50;
+      background-color: #20b496;
       color: white;
     }
 
@@ -92,110 +88,155 @@
   </style>
 </head>
 <body>
-  <div class="button-container">
-    <button class="btn" style="background-color: blue; color: white;" onclick="window.print()">Print</button>
-    <a href="/admin/" class="button">Back to Home</a>
-  </div>
-
-  <h2>Daily Sales Report</h2>
-  <table id="dataTable">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Order ID</th>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% 
-        let totalAmountToday = 0;
+<div class="button-container">
+  <button class="btn btn-primary mr-2" id="downloadCsvBtn">Download as CSV</button>
   
-        // Flatten the data array and sort it by date in descending order
-        const flattenedData = data.reduce((acc, report) => {
-          report.products.reverse().forEach((product) => {
-            const reportDate = new Date(report.date);
-            if (report.orderStatus !== 'cancelled' && reportDate.toDateString() === new Date().toDateString()) {
-              totalAmountToday += product.total; // Accumulate the total amount for today
-              acc.push({
-                date: report.date,
-                orderId: report.orderId,
-                productName: product.productId.productName,
-                price: product.productId.price,
-                quantity: product.quantity,
-                total: product.total,
-              });
-            }
+  <a href="/admin/" class="button">Back to Home</a>
+</div>
+
+
+<h2>Daily Sales Report</h2>
+<table id="dataTable">
+  <thead>
+  <tr>
+    <th>Date</th>
+    <th>Order ID</th>
+    <th>Product Name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% 
+    let totalAmountToday = 0;
+
+    // Flatten the data array and sort it by date in descending order
+    const flattenedData = data.reduce((acc, report) => {
+      report.products.reverse().forEach((product) => {
+        const reportDate = new Date(report.date);
+        if (report.orderStatus !== 'cancelled') { // Check if orderStatus is not 'cancelled'
+          totalAmountToday += product.total; // Accumulate the total amount for today
+          acc.push({
+            date: report.date,
+            orderId: report.orderId,
+            productName: product.productId.productName,
+            price: product.productId.price,
+            quantity: product.quantity,
+            total: product.total,
           });
-          return acc;
-        }, []);
-  
-        // Sort the flattenedData array by date in descending order
-        flattenedData.sort((a, b) => new Date(b.date) - new Date(a.date));
-  
-        // Render the rows
-        flattenedData.forEach((entry) => {
-      %>
-          <tr>
-            <td><%= formatDate(entry.date) %></td>
-            <td><%= entry.orderId %></td>
-            <td><%= entry.productName %></td>
-            <td>₹<%= entry.price %></td>
-            <td><%= entry.quantity %></td>
-            <td>₹<%= entry.total %></td>
-          </tr>
-      <% 
-        });
-      %>
-    </tbody>
-    
-    <!-- Display the total amount for today outside the loop -->
-    <tfoot>
-      <tr>
-        <td colspan="5" style="text-align: left;">Total Amount for Today:</td>
-        <td style="text-align: right;">₹<%= totalAmountToday.toFixed(2) %></td>
-      </tr>
-    </tfoot>
-  </table>
-
-
-  <% function formatDate(date) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(date).toLocaleDateString(undefined, options);
-  } %>
-  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-  <script>
-    // Custom search plugin for date formats like "23 Jan 2024" and product name
-    $.fn.dataTable.ext.type.search.custom = function (data) {
-      return data ? data.toLowerCase() : '';
-    };
-  
-    $(document).ready(function () {
-      // Initialize DataTable with custom search options
-      $('#dataTable').DataTable({
-        "paging": true,
-        "pageLength": 10,
-        "order": [[0, "desc"]],
-        "columnDefs": [
-          {
-            "targets": [0], // Date column index
-            "type": "dateFormatted" // Use custom date type for searching
-          },
-          {
-            "targets": [2], // Product Name column index
-            "type": "custom" // Use custom search type for product name
-          }
-        ]
+        }
       });
+      return acc;
+    }, []);
+
+    // Sort the flattenedData array by date in descending order
+    flattenedData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Render the rows
+    flattenedData.forEach((entry) => {
+  %>
+  <tr>
+    <td><%= formatDate(entry.date) %></td>
+    <td><%= entry.orderId %></td>
+    <td><%= entry.productName %></td>
+    <td>₹<%= entry.price %></td>
+    <td><%= entry.quantity %></td>
+    <td>₹<%= entry.total %></td>
+  </tr>
+  <% 
     });
-  </script>
+  %>
+  </tbody>
   
+  <!-- Display the total amount for today outside the loop -->
+  <tfoot>
+  <tr>
+    <td colspan="5" style="text-align: left;">Total Amount for Today:</td>
+    <td style="text-align: right;">₹<%= totalAmountToday.toFixed(2) %></td>
+  </tr>
+  </tfoot>
+</table>
 
-  </script>
-  
+
+<% function formatDate(date) {
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return new Date(date).toLocaleDateString(undefined, options);
+} %>
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+<script>
+  // Custom search plugin for date formats like "23 Jan 2024" and product name
+  $.fn.dataTable.ext.type.search.custom = function (data) {
+    return data ? data.toLowerCase() : '';
+  };
+
+  $(document).ready(function () {
+    // Initialize DataTable with custom search options
+    $('#dataTable').DataTable({
+      "paging": true,
+      "pageLength": 10,
+      "order": [[0, "desc"]],
+      "columnDefs": [
+        {
+          "targets": [0], // Date column index
+          "type": "dateFormatted" // Use custom date type for searching
+        },
+        {
+          "targets": [2], // Product Name column index
+          "type": "custom" // Use custom search type for product name
+        }
+      ]
+    });
+
+    // Search button click event handler
+    $('#searchBtn').click(function () {
+      // Get start and end dates
+      var startDate = $('#startDate').val();
+      var endDate = $('#endDate').val();
+
+      // Perform filtering based on date range
+      $('#dataTable').DataTable().columns(0).search(startDate + '|' + endDate, true, false).draw();
+    });
+  });
+</script>
+
+<script>
+  document.getElementById('downloadCsvBtn').addEventListener('click', function() {
+    // Get the table element
+    const table = document.getElementById('dataTable');
+    
+    // Create a new CSV file content
+    let csvContent = '';
+    
+    // Iterate over each row in the table
+    for (let i = 0; i < table.rows.length; i++) {
+      const row = table.rows[i];
+      
+      // Iterate over each cell in the row
+      for (let j = 0; j < row.cells.length; j++) {
+        // Append cell value to CSV content
+        csvContent += row.cells[j].innerText + ',';
+      }
+      
+      // Add a new line after each row
+      csvContent += '\n';
+    }
+    
+    // Create a Blob containing the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    
+    // Create a link element to trigger the download
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    
+    // Set the file name for the download
+    link.download = 'table_data.csv';
+    
+    // Simulate a click event to trigger the download
+    link.click();
+  });
+</script>
+
 </body>
-
 </html>

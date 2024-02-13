@@ -29,6 +29,12 @@ const storage = multer.diskStorage({
   
 
   
+function nocache(req, res, next) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+}
 
 
 
@@ -42,12 +48,13 @@ const storage = multer.diskStorage({
 
 
 
-router.get('/adminlogin',adminloginback,admin.adminlogin)
+
+router.get('/adminlogin',nocache,adminloginback,admin.adminlogin)
 router.post('/adminloginpost',adminloginback,admin.adminloginpost)
-router.get('/userlist',adminchecksession,admin. userlist)
+router.get('/userlist',nocache,adminchecksession,admin. userlist)
 router.get('/adduser',adminchecksession,admin.adduser)
 router.get('/addcategory',adminchecksession,admin.addcategory)
-router.get('/',adminchecksession,admin.adhome)
+router.get('/',adminchecksession,nocache,admin.adhome)
 router.get('/product',adminchecksession,addproduct.productlist)
 router.post('/blockUser/:userId',adminchecksession,admin.blockUser)
 router.post('/addcategory',adminchecksession,upload.single ('categoryImage'),adcatagory.catagory)
@@ -92,6 +99,13 @@ router.post('/catagorydeactivate/:dataId',adminchecksession,admin.catagorydeacti
 router.get('/cancelorder',adminchecksession,admin.cancelorder)
 router.post('/allowcancel',adminchecksession,admin.allowcancel)
 router.post('/rejectcancel',adminchecksession,admin.rejectcancel)
+router.get('/weeklygraph',adminchecksession,report.weeklygraph)
+router.get('/categorygraph',adminchecksession,report.categorygraph)
+router.get('/paymengraph',adminchecksession,report.paymengraph)
+
+
+
+
 
 
 

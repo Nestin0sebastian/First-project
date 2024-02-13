@@ -1,5 +1,6 @@
 const Coupon = require('../model/coupenschema');
 const addcart=require('../model/cartschema');
+const cartmodel = require('../model/cartschema');
 
 const createcoupon = (req, res) => {
     res.render('admin/addcoupons');
@@ -261,12 +262,15 @@ const deletecoupon = async (req, res) => {
         }
 
         // Find and delete the coupon
-        const deletedCoupon = await Coupon.findByIdAndDelete(couponId);
-
+        const deletedCoupon = await Coupon.findById(couponId);
         if (!deletedCoupon) {
             return res.status(404).json({ message: 'Coupon not found' });
         }
 
+        // Update the isUsed property and save
+        deletedCoupon.isuserused = true;
+
+        await deletedCoupon.save();
         // Clear the couponId from the session
         req.session.couponId = null;
 
@@ -274,7 +278,7 @@ const deletecoupon = async (req, res) => {
         res.status(200).json({ message: 'Coupon deleted successfully' });
 
         // Find the user's cart and update the appliedCoupon field
-        const cart = await addcart.findOne({ user: req.session.dataofuser });
+        const cart = await cartmodel.findOne({ user: req.session.dataofuser });
         if (cart) {
             cart.appliedCoupon = false;
             await cart.save();
@@ -284,6 +288,7 @@ const deletecoupon = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+
 
 const deletecart = async (req, res) => {
     const userId = req.session.dataofuser;

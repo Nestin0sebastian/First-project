@@ -33,11 +33,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <% data.reverse().forEach((datas) => { %>
+                                                <% data.slice().reverse().forEach((datas) => { %>
                                                     <tr>
                                                         <td><%= datas.orderId %></td>
                                                         <td><%= datas.address.name %></td>
-                                                        <td>₹<%= datas.totalAmount %></td>
+                                                        <td>₹<%= Math.round(datas.totalAmount) %></td>
                                                         <td><%= datas.orderStatus %></td>
                                                         <td><%= datas.date.toLocaleDateString() %></td>
                                                         <td><a href="/admin/viewdetails/<%= datas._id %>" class="view-details-btn">View Details</a></td>
@@ -47,9 +47,12 @@
                                         </table>
                                         <script>
                                             $(document).ready(function() {
-                                                $('#table_id').DataTable();
+                                                $('#table_id').DataTable({
+                                                    "order": [] // Disable default sorting
+                                                });
                                             });
                                         </script>
+                                        
                                         
                                     </div>
                                 </div>

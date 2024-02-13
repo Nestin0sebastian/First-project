@@ -48,6 +48,10 @@ const couponSchema = new mongoose.Schema({
     isExpired: {
         type: Boolean,
         default: true
+    },
+    isuserused: {
+        type: Boolean,
+        default: false
     }
 });
 

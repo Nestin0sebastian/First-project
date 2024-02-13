@@ -792,7 +792,7 @@
                                             // Assuming you have an array named 'coupons' containing coupon objects
                                             coupons.reverse().forEach((coupon) => {
                                                 // Check if the coupon is listed before rendering
-                                                if (coupon.islisted) {
+                                                if (coupon.islisted && !coupon.isuserused) {
                                         %>
                                                     <tr>
                                                         <td><%= coupon.couponcode %></td>
@@ -1272,25 +1272,53 @@
 </body>
 
 <script>
-function updateQuantity(productId, change, event) {
-    const quantityInput = document.getElementById(`quantityInput-${productId}`);
-    const quantityDisplay = document.getElementById(`quantityDisplay-${productId}`);
-    const currentQuantity = parseInt(quantityInput.value, 10);
-    const minQuantity = parseInt(quantityInput.getAttribute('min'), 10);
-    const maxQuantity = parseInt(quantityInput.getAttribute('max'), 10);
-
-    const newQuantity = currentQuantity + change;
-
-    if (newQuantity >= minQuantity && newQuantity <= maxQuantity) {
-        quantityInput.value = newQuantity;
-        quantityDisplay.innerText = newQuantity; // Update the displayed quantity
-        // Prevent the default form submission
-        event.preventDefault();
-        document.getElementById(`quantityForm-${productId}`).submit();
+    function updateQuantity(productId, change, event) {
+        const quantityInput = document.getElementById(`quantityInput-${productId}`);
+        const quantityDisplay = document.getElementById(`quantityDisplay-${productId}`);
+        const currentQuantity = parseInt(quantityInput.value, 10);
+        const minQuantity = parseInt(quantityInput.getAttribute('min'), 10);
+        const maxQuantity = parseInt(quantityInput.getAttribute('max'), 10);
+    
+        const newQuantity = currentQuantity + change;
+    
+        if (newQuantity >= minQuantity && newQuantity <= maxQuantity) {
+            // Prevent the default form submission
+            event.preventDefault();
+    
+            // Make an AJAX request to update the quantity
+            fetch('/quantitypost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productId: productId,
+                    quantity: newQuantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the displayed quantity
+                    quantityInput.value = newQuantity;
+                    quantityDisplay.innerText = newQuantity;
+                    console.log('Quantity updated successfully:', data.cart);
+                    
+                    // Reload the page after updating quantity
+                    location.reload();
+                } else {
+                    // Handle error messages or other responses from the server
+                    console.error('Error updating quantity:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating quantity:', error);
+            });
+        }
     }
-}
-
-</script>
+    </script>
+    
+    
 <script>
     async function applyCoupon(id) {
         try {

@@ -244,35 +244,31 @@ const postotp = async (req, res) => {
 
 
 
-    
-    const loginpost = async (req, res) => {
-        
-        try {
-          const loguser = await userModel.findOne({ email: req.body.email });
-         
-        
-          if (loguser) {
-            if(loguser.isblocked){
-                redirect("/login")
+const loginpost = async (req, res) => {
+    try {
+        const loguser = await userModel.findOne({ email: req.body.email });
+
+        if (loguser) {
+            if (loguser.isblocked) {
+                return res.redirect("/login?errorMessage=User%20is%20blocked");
             }
-        const passwordMatch = await bcrypt.compare(req.body.password, loguser.password);
+            const passwordMatch = await bcrypt.compare(req.body.password, loguser.password);
             if (passwordMatch) {
-                req.session.dataofuser=loguser
-              res.redirect('/');
-             }else {
-            //   req.session.user = loguser.email;
-              return res.redirect('/login');
+                req.session.dataofuser = loguser;
+                return res.redirect('/');
+            } else {
+                return res.redirect('/login?errorMessage=Invalid%20email%20or%20password');
             }
-          } else {
-            req.session.errorMessage = 'Invalid Password';
-            res.redirect('/login');
-          }
-        } catch (error) {
-          console.log(error);
-          req.session.error = error;
-          res.redirect('/login');
+        } else {
+            return res.redirect('/login?errorMessage=Invalid%20email%20or%20password');
         }
-      };
+    } catch (error) {
+        console.log(error);
+        req.session.error = error;
+        return res.redirect('/login?errorMessage=An%20error%20occurred');
+    }
+};
+
 
 
 const forgototp=(res,req)=>{
@@ -449,10 +445,18 @@ const resetpassword=async(req,res)=>{
                 res.status(500).send('Internal Server Error');
             }
         };
-        
+
+
         const catagory = async (req, res) => {
             try {
                 let queryCondition = { islist: true };
+        
+                if (req.query.minPrice && req.query.maxPrice && req.query.minPrice > 0 && req.query.maxPrice > 0) {
+                    // Filter products based on price range if minPrice and maxPrice are provided
+                    const minPrice = parseFloat(req.query.minPrice);
+                    const maxPrice = parseFloat(req.query.maxPrice);
+                    queryCondition.price = { $gte: minPrice, $lte: maxPrice };
+                }
         
                 if (req.query.search && req.query.search.trim().length > 0) {
                     const searchText = req.query.search;

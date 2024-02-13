@@ -529,6 +529,7 @@
 
 
                             <div class="products mb-3">
+                                
                                 <% if(products.isoffer === true) { %>
                                     <div class="row justify-content-center">
                                         <% if(products && products.length > 0) { %>
@@ -569,11 +570,16 @@
                                                                  
                                                             </div>
                                                             <div class="ratings-container">
-                                                                <div class="ratings">
-                                                                    <div class="ratings-val" style="width: 20%;"></div>
+                                                                <div  id="custom-ratings">
+                                                                    <i class="fa fa-star" id="star1"></i>
+                                                                    <i class="fa fa-star" id="star2"></i>
+                                                                    <i class="fa fa-star" id="star3"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
                                                                 </div>
-                                                                <span class="ratings-text">(2 Reviews)</span>
+                                                                <span class="ratings-text" id="custom-ratings-text">(3 Reviews)</span>
                                                             </div>
+                                                            
                             
                                                             <div class="product-nav product-nav-thumbs">
                                                                 <% product.productImage.forEach((image) => {  %>
@@ -631,11 +637,22 @@
                                                                  <span class="original-price"><s><%= product.previous_price  %></s></span>
                                                             </div>
                                                             <div class="ratings-container">
-                                                                <div class="ratings">
-                                                                    <div class="ratings-val" style="width: 20%;"></div>
+                                                                <div  id="custom-ratings">
+                                                                    <i class="fa fa-star" id="star1"></i>
+                                                                    <i class="fa fa-star" id="star2"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
                                                                 </div>
-                                                                <span class="ratings-text">(2 Reviews)</span>
+                                                                <span class="ratings-text" id="custom-ratings-text">(2 Reviews)</span>
                                                             </div>
+                                                            
+                                                            <style>
+                                                                #star1, #star2 {
+                                                                        color: rgb(247, 182, 4);
+                                                                    }
+
+                                                            </style>
                                     
                                                             <div class="product-nav product-nav-thumbs">
                                                                 <% product.productImage.forEach((image) => { %>
@@ -684,16 +701,41 @@
                 			
                 				<div class="widget widget-clean">
                 					<label>Filters:</label>
-                					<a href="#" class="sidebar-filter-clear">Clean All</a>
                 				</div><!-- <div class="sidebar sidebar-shop">End .widget widget-clean -->
                                     <div class="widget widget-collapsible">
                                         <h3 class="widget-title">
-                                            <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
-                                                Category
+                                                Price Filteration
                                             </a>
-                                        </h3><!-- End .widget-title -->
+                                        </h3>
+                                        
+                                        <!-- End .widget-title -->
+                                        <div class="price-filter" style="margin-bottom: 30px;">
+                                            <label for="min-price">Min Price:</label>
+                                            <input type="number" id="min-price" name="min-price" min="0">
+                                            <label for="max-price">Max Price:</label>
+                                            <input type="number" id="max-price" name="max-price" min="0">
+                                            <button class="apply-button" onclick="applyPriceFilter()">Apply</button>
+                                            <a href="/shop" class="apply-button">Clear All</a>
+                                        </div>
+                                        
+                                        
+                                        
+                                        </script>
+                                        
+                                        
+                                        
+                                        <div id="product-listing">
+                                            <!-- Product listing will be updated dynamically here -->
+                                        </div>
                                     
+                                        
+                                        
+                                        
                                         <!-- HTML -->
+                                        <h3 class="widget-title">
+                                            <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+                                                Category Filteration                                            </a>
+                                        </h3>
                                         <div class="collapse show" id="widget-1">
                                             <% if (category && category.length > 0) { %>
                                                 <div class="widget-body">
@@ -773,7 +815,7 @@
         						<!-- <div class="widget widget-collapsible">
     								<h3 class="widget-title">
 									    <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true" aria-controls="widget-2">
-									        <!-- Size -->
+									       Size -->
 									    </a>
 								 <!-- </h3>End .widget-title
 		                          <div class="collapse show" id="widget-2">
@@ -1373,36 +1415,7 @@ function buildQueryString(searchQuery, checkedCategories) {
     <script src="assets/js/main.js"></script>
 </body>
 
-<script>
-document.getElementById('searchButton').addEventListener('click', function () {
-    const searchQuery = document.getElementById('productSearch').value;
-    
-    
-    // Make a fetch request to your search route
-    fetch(`/shop?search=${searchQuery}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Handle the response from the server, if needed
-        console.log(data);
-        // Update the product listing or perform other actions
-    })
-    .catch(error => {
-        // Handle errors during the fetch
-        console.error('There was a problem with the fetch operation:', error);
-    });
-});
 
-</script>
 <!-- Include SweetAlert script in your HTML -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -1521,6 +1534,19 @@ document.getElementById('searchButton').addEventListener('click', function () {
 
 </script>
 <!-- Add this CSS style in the head section or in your stylesheet -->
+<script>
+    function applyPriceFilter() {
+        const minPrice = document.getElementById('min-price').value;
+        const maxPrice = document.getElementById('max-price').value;
+    
+        // Construct the URL with query parameters
+        const url = `/shop?minPrice=${minPrice}&maxPrice=${maxPrice}`;
+    
+        window.location.href = url; // Reload the page with the filtered products
+    }
+</script>
+
+
     
 
 <!-- Add this script at the end of the body section -->

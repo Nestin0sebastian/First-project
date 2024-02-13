@@ -586,8 +586,10 @@ function closeWalletModal() {
                 </tr>
             </thead>
             <tbody>
-                <% orders.reverse().forEach((finder) => { 
-                        finder.products.reverse().forEach((product) => { %>
+                
+
+                <% orders.forEach((finder) => { 
+                        finder.products.forEach((product) => { %>
                             <tr>
                                 <td><%= finder.orderId %></td>
                                 <td>₹<%= Math.round(finder.totalAmount) %></td>
@@ -602,24 +604,26 @@ function closeWalletModal() {
                                 </td>
                                 <td>
                                     <% if (finder.orderStatus === 'Delivered') { %>
-                                        <button class="delivered-button" onclick="returnOrder('<%= finder._id %>','<%= product.productId._id %>')">Return</button>
-                                    <% } else if (finder.orderStatus === 'returned') { %>
-                                        <strong style="color: rgb(228, 137, 17); font-weight: bold;">Returned</strong>
-                                    <% } else if (finder.orderStatus === 'cancelled') { %>
-                                        <strong style="color: red; font-weight: bold;">Cancelled</strong>
-                                    <% }
+                                        <button class="delivered-button" style="font-size: 12px; font-weight: bold;" onclick="returnOrder('<%= finder._id %>','<%= product.productId._id %>')">Return</button>
+                                        <% } else if (finder.orderStatus === 'returned') { %>
+                                            <p class="badge rounded-pill" style="font-size: 15px; padding: 8px 12px; background-color: rgb(234, 175, 11); color: white;">Returned</p>
+                                            <% } else if (finder.orderStatus === 'cancelled') { %>
+                                        <p class="badge rounded-pill alert-danger" style="font-size: 15px; padding: 8px 12px;">Cancelled</p>
+
+                                        <% }
                                     else if (finder.orderStatus === 'rejected') { %>
-                                        <strong style="color: rgb(47, 9, 234); font-weight: bold;">rejected </strong>
-                                    <% }else if (finder.orderStatus === 'requested') { %>
-                                        <strong style="color: rgb(223, 190, 0); font-weight: bold;">requested </strong>
-                                    <% }
+                                        <p class="badge rounded-pill" style="font-size: 15px; padding: 8px 12px; background-color: rgb(0, 0, 0); color: white;">Rejected</p>
+                                        <% }else if (finder.orderStatus === 'requested') { %>
+                                        <p class="badge rounded-pill" style="font-size: 15px; padding: 8px 12px; background-color: yellow;">Requested</p>
+                                        <% }
                                     
                                     else { %>
                                         <% if (finder.orderStatus !== 'Delivered' && finder.orderStatus !== 'Cancelled' && product.productId && product.productId._id && finder.orderStatus !== 'cancelled') { %>
                                             <div class="btn-group">
-                                                <button class="btn btn-danger btn-sm cancel-btn dropdown-toggle" type="button" id="cancelDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button class="btn btn-danger custom-btn-sm cancel-btn dropdown-toggle" type="button" id="cancelDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     Cancel
                                                 </button>
+                                                
                                                 <div class="dropdown-menu dropdown-lg" aria-labelledby="cancelDropdown" style="min-width: 30rem;">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="cancelReason" id="productOutOfStock"  value="  Delivery tracking issues.">
@@ -746,8 +750,8 @@ function closeWalletModal() {
             <tbody>
                 <% 
                     // Reverse the order of rendering, so the latest orders appear first
-                    orders.reverse().forEach((finder) => { 
-                        finder.products.reverse().forEach((product) => { 
+                    orders.forEach((finder) => { 
+                        finder.products.forEach((product) => { 
                           
                 %>
                                 <tr>
@@ -924,7 +928,7 @@ function closeWalletModal() {
                                                 <div class="form-footer">
                                                     
                                         
-                                                    <!-- <div class="custom-control custom-checkbox"> -->
+                                                            <!-- <div class="custom-control custom-checkbox"> -->
                                                         <!-- <input type="checkbox" class="custom-control-input" id="register-policy" required> -->
                                                         <!-- <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label> -->
                                                     <!-- </div>End .custom-checkbox -->
@@ -1519,7 +1523,7 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
     async function deleteAddress(addressId) {
-        alert(addressId)
+      
         try {
             const response = await fetch(`/deleteaddress/${addressId}`, {
                 method: 'DELETE',
@@ -1579,7 +1583,6 @@ document.addEventListener('DOMContentLoaded', function () {
 <script>
     function returnOrder(finderId, productId) {
         // Use SweetAlert to display a confirmation dialog
-        alert(finderId);
         Swal.fire({
             title: 'Are you sure you want to return this order?',
             text: 'This action cannot be undone.',

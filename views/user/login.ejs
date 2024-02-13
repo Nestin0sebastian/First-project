@@ -712,7 +712,13 @@
     left: 50%;
     transform: translateX(-50%);
   }
-    
+  .form-choice {
+    position: absolute;
+    bottom: 50px; /* Adjust this value to move it further downwards */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
   </style>
 
 
@@ -721,6 +727,7 @@
 <!-- partial:index.partial.html -->
 
 <body class="align">
+    <div id="alertBox" class="alert"></div>
 
     <h2 style="color: white; font-family: 'fantasy'; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 8px; text-align: center; background: linear-gradient(to right, #000000, #000000); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">Login</h2>
 
@@ -758,37 +765,21 @@
 
                          
                             </div>
-                            <!-- <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="signin-remember">
-                                <label class="custom-control-label" for="signin-remember">Remember Me</label>
-                            </div>End .custom-checkbox -->
+                       
 
                           
                         </div><!-- End .form-footer -->
                     </form>
-                    <div class="form-choice">
-                        <p class="text-center"><a href="/signup">Don't have an account?</a></p>
-                        <!-- <div class="row">
-                            <div class="col-sm-6">
-                                <a href="#" class="btn btn-login btn-g">
-                                    <i class="icon-google"></i>
-                                    Login With Google
-                                </a>
-                            </div>End .col-6
-                            <div class="col-sm-6">
-                                <a href="#" class="btn btn-login btn-f">
-                                    <i class="icon-facebook-f"></i>
-                                    Login With Facebook
-                                </a>
-                            </div>End .col-6 -->
-                        </div><!-- End .row -->
+                  <!-- End .row -->
                     </div><!-- End .form-choice -->
                 
                
             
        
     </div><!-- End .form-box -->
-
+<div class="form-choice">
+    <p class="text-center" style="white-space: nowrap;"><a href="/signup">Don't have an account?</a></p>
+</div>
 
 </body>
 <!-- partial -->
@@ -811,7 +802,24 @@
             }
         };
     </script>;
+<script>
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('errorMessage');
 
+        // Check if errorMessage query parameter exists
+        if (errorMessage) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.innerHTML = errorMessage;
+            alertBox.classList.add('error'); // Add error class for styling
+            alertBox.style.display = 'block';
+            
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 3000);
+        }
+    };
+</script>
 
 </body>
 </html>

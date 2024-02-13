@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #40b18f;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <button class="btn" style="background-color: blue; color: white;" onclick="window.print()">Print</button>
+        <a href="/admin/" class="button" style="color: rgb(251, 251, 251); text-decoration: none; float: right;">Back to Home</a>
+
+    </div>
+    <h2>Weekly Sales Graph</h2>
+
+    <canvas id="salesChart"></canvas>
+
+    <script>
+        // Server-side variables
+        const dailyLabels = <%- JSON.stringify(dailyLabels) %>;
+        const dailyData = <%- JSON.stringify(dailyData) %>;
+    
+        // Function to aggregate orders by day
+        function aggregateOrdersByDay(labels, data) {
+            const aggregatedData = {};
+            labels.forEach((label, index) => {
+                if (!aggregatedData[label]) {
+                    aggregatedData[label] = 0;
+                }
+                aggregatedData[label] += data[index];
+            });
+            return Object.values(aggregatedData);
+        }
+    
+        // Function to render the sales chart
+        function renderSalesChart() {
+            const aggregatedData = aggregateOrdersByDay(dailyLabels, dailyData);
+    
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dailyLabels.filter((value, index, self) => self.indexOf(value) === index),
+                    datasets: [{
+                        label: 'Daily Sales',
+                        data: aggregatedData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        barThickness: 40 // Adjust the bar thickness here
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    
+        // Call the function to render the sales chart
+        renderSalesChart();
+    </script>
+    
+    
+</body>
+</html>

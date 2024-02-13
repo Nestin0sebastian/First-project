@@ -48,9 +48,9 @@
                                                           <td><%= item.description %></td>
                                                           <td class="d-flex align-items-center text-center"> <!-- Align buttons to the right -->
                                                             <% if(item.islist) { %>
-                                                              <button class="btn btn-danger  " onclick="blockcatagory('<%= item._id %>')">Unlist</button> 
+                                                              <button class="btn btn-danger  " onclick="blockcatagory('<%= item._id %>')">List</button> 
                                                             <% } else { %>
-                                                                <button class="btn btn-danger " onclick="blockcatagory('<%= item._id %>')">List</button>
+                                                                <button class="btn btn-danger " onclick="blockcatagory('<%= item._id %>')">Unlist</button>
 
                                                             <% } %>
                                                         </td>

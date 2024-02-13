@@ -93,19 +93,23 @@ const cartdisplay = async (req, res) => {
 
 const quantitypost = async (req, res) => {
     try {
-    const productId = req.body.productId; // Access productId from the request body
-    const quantity = req.body.quantity; // New quantity value to update
-    const userId = req.session.dataofuser._id;
-    let userCart = await addcart.findOne({ user: userId }).populate('products.product');
-    console.log(userCart);
-    const existingProduct = userCart.products.find(
-        (product) => product.product._id.toString() === productId
-    );
-    if(quantity > existingProduct.product.currentQut){
-        res.status(500).send("quantity exceeded")
-    }
-    existingProduct.quantity = quantity;
-    let totalAmount = 0;
+        const productId = req.body.productId; // Access productId from the request body
+        const quantity = req.body.quantity; // New quantity value to update
+        const userId = req.session.dataofuser._id;
+        
+        let userCart = await addcart.findOne({ user: userId }).populate('products.product');
+        
+        const existingProduct = userCart.products.find(
+            (product) => product.product._id.toString() === productId
+        );
+        
+        if (quantity > existingProduct.product.currentQut) {
+            return res.status(500).send("Quantity exceeded");
+        }
+        
+        existingProduct.quantity = quantity;
+        
+        let totalAmount = 0;
         for (const product of userCart.products) {
             const productDetails = await Product.findById(product.product._id);
             totalAmount += product.quantity * productDetails.price;
@@ -115,15 +119,17 @@ const quantitypost = async (req, res) => {
 
         // Save the updated cart
         await userCart.save();
-   
-    req.session.productId = productId
+        
+        req.session.productId = productId;
 
-        res.redirect('/cartdisplay'); // Redirect to '/cartdisplay' after updating carts
-    } catch (error) {                                                           
+        // Send JSON response indicating success
+        return res.json({ success: true, message: 'Cart updated successfully', cart: userCart });
+    } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error'); // Handle error appropriately
+        return res.status(500).send('Internal Server Error'); // Handle error appropriately
     }
 }
+
 
 
 const selectProduct = async (req, res) => {
